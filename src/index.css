@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+/* -------------------------------------------------------------
+   Custom Theme Configuration & Global Animations for Tailwind v4
+   ------------------------------------------------------------- */
+
+@layer utilities {
+  /* Hide scrollbars for navigation tabs while maintaining native scrolling */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Custom fade-in animation utility */
+  .animate-fade-in {
+    animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Global scroll smoothing properties */
+html {
+  scroll-behavior: smooth;
+  background-color: #09090b; /* bg-zinc-950 fallback */
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
