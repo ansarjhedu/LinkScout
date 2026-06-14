@@ -17,11 +17,21 @@
  * @param {string} html - Raw HTML document content.
  * @returns {DomHelper} Helper utilities bound to the parsed document.
  */
+let DOMParserCtor;
+
+if (typeof DOMParser !== "undefined") {
+  DOMParserCtor = DOMParser;
+} else {
+  const { DOMParser: NodeDOMParser } = await import("linkedom");
+  DOMParserCtor = NodeDOMParser;
+}
+
 export default function parseHtml(html) {
   const safeHtml = typeof html === "string" ? html : "";
-  const parser = new DOMParser();
+  const parser = new DOMParserCtor();
   
-  // Parse with the browser's highly-optimized HTML engine
+  // Parse with the browser's highly-optimized HTML engine when available,
+  // otherwise use linkedom in Node for consistent HTML parsing.
   const doc = parser.parseFromString(safeHtml, "text/html");
 
   return {

@@ -1,4 +1,10 @@
-import { buildField, combinePageText, MISSING_REASONS } from "../utils/fieldBuilder.js";
+import {
+  buildField,
+  combinePageText,
+  CONFIDENCE_LEVELS,
+  EVIDENCE_TYPES,
+  MISSING_REASONS,
+} from "../utils/fieldBuilder.js";
 
 
 
@@ -72,27 +78,86 @@ export default function extractInventory(pages, brandData = []) {
 
 
   return {
-
-    newUsedMix: buildField(newUsedMix, newUsedMix ? "VERIFIED" : "MISSING", newUsedMix ? source : null, newUsedMix ? null : MISSING_REASONS.NO_PAGE_CONTENT),
-
-    brandPriority: buildField(brandPriority, brandPriority.length ? "VERIFIED" : "MISSING", brandPriority.length ? home?.url : null, brandPriority.length ? null : MISSING_REASONS.NO_PAGE_CONTENT),
-
-    categoryPriority: buildField(categoryPriority, categoryPriority.length ? "VERIFIED" : "MISSING", categoryPriority.length ? source : null, categoryPriority.length ? null : MISSING_REASONS.NO_PAGE_CONTENT),
-
-    opportunityCategories: buildField(opportunityCategories, opportunityCategories.length ? "VERIFIED" : "MISSING", opportunityCategories.length ? source : null, opportunityCategories.length ? null : MISSING_REASONS.NO_PAGE_CONTENT),
-
-    usedStance: buildField(hasUsed ? "Actively offers used/pre-owned inventory" : null, hasUsed ? "VERIFIED" : "MISSING", hasUsed ? usedPage?.url || source : null, hasUsed ? null : MISSING_REASONS.NO_MATCHING_LINK),
-
-    tradeInPolicy: buildField(hasTradeIn ? "Accepts trade-ins" : null, hasTradeIn ? "VERIFIED" : "MISSING", hasTradeIn ? source : null, hasTradeIn ? null : MISSING_REASONS.NO_PAGE_CONTENT),
-
-    buyOutrightPolicy: buildField(hasBuyOutright ? "Offers to buy vehicles outright" : null, hasBuyOutright ? "VERIFIED" : "MISSING", hasBuyOutright ? source : null, hasBuyOutright ? null : MISSING_REASONS.NO_PAGE_CONTENT),
-
-    consignmentStance: buildField(consignment?.[0]?.trim() || null, consignment ? "VERIFIED" : "MISSING", consignment ? source : null, consignment ? null : MISSING_REASONS.NO_PAGE_CONTENT),
-
-    nonBrandTradeIns: buildField(nonBrandTrade?.[0]?.trim() || null, nonBrandTrade ? "VERIFIED" : "MISSING", nonBrandTrade ? source : null, nonBrandTrade ? null : MISSING_REASONS.NO_PAGE_CONTENT),
-
-    primaryUsedCategories: buildField(categoryPriority.length ? categoryPriority : null, categoryPriority.length ? "INFERRED" : "MISSING", source, categoryPriority.length ? null : MISSING_REASONS.NO_PAGE_CONTENT),
-
+    newUsedMix: buildField(
+      newUsedMix,
+      newUsedMix ? CONFIDENCE_LEVELS.INFERRED : CONFIDENCE_LEVELS.MISSING,
+      source,
+      !newUsedMix ? MISSING_REASONS.NO_PAGE_CONTENT : null,
+      EVIDENCE_TYPES.PAGE_TEXT,
+      { method: 'page_existence', hasNew, hasUsed }
+    ),
+    brandPriority: buildField(
+      brandPriority.length ? brandPriority : null,
+      brandPriority.length ? CONFIDENCE_LEVELS.INFERRED : CONFIDENCE_LEVELS.MISSING,
+      home?.url || null,
+      !brandPriority.length ? MISSING_REASONS.NO_PAGE_CONTENT : null,
+      EVIDENCE_TYPES.PAGE_TEXT,
+      { source: 'brand_extraction', count: brandPriority.length }
+    ),
+    categoryPriority: buildField(
+      categoryPriority.length ? categoryPriority : null,
+      categoryPriority.length ? CONFIDENCE_LEVELS.INFERRED : CONFIDENCE_LEVELS.MISSING,
+      source,
+      !categoryPriority.length ? MISSING_REASONS.NO_PAGE_CONTENT : null,
+      EVIDENCE_TYPES.PAGE_TEXT,
+      { method: 'keyword_match', categories: categoryPriority }
+    ),
+    opportunityCategories: buildField(
+      opportunityCategories.length ? opportunityCategories : null,
+      opportunityCategories.length ? CONFIDENCE_LEVELS.INFERRED : CONFIDENCE_LEVELS.MISSING,
+      source,
+      !opportunityCategories.length ? MISSING_REASONS.NO_PAGE_CONTENT : null,
+      EVIDENCE_TYPES.PAGE_TEXT,
+      { method: 'keyword_match', categories: opportunityCategories }
+    ),
+    usedStance: buildField(
+      hasUsed ? "Actively offers used/pre-owned inventory" : null,
+      hasUsed ? CONFIDENCE_LEVELS.VERIFIED : CONFIDENCE_LEVELS.MISSING,
+      hasUsed ? (usedPage?.url || source) : null,
+      !hasUsed ? MISSING_REASONS.NO_MATCHING_LINK : null,
+      hasUsed ? EVIDENCE_TYPES.LINK_PATTERN : EVIDENCE_TYPES.PAGE_TEXT,
+      { method: 'page_existence', pageType: 'inventory-used' }
+    ),
+    tradeInPolicy: buildField(
+      hasTradeIn ? "Accepts trade-ins" : null,
+      hasTradeIn ? CONFIDENCE_LEVELS.INFERRED : CONFIDENCE_LEVELS.MISSING,
+      source,
+      !hasTradeIn ? MISSING_REASONS.NOT_ON_WEBSITE : null,
+      EVIDENCE_TYPES.PAGE_TEXT,
+      { method: 'keyword_match', keywords: ['trade-in', 'trade in', 'accept trade'] }
+    ),
+    buyOutrightPolicy: buildField(
+      hasBuyOutright ? "Offers to buy vehicles outright" : null,
+      hasBuyOutright ? CONFIDENCE_LEVELS.INFERRED : CONFIDENCE_LEVELS.MISSING,
+      source,
+      !hasBuyOutright ? MISSING_REASONS.NOT_ON_WEBSITE : null,
+      EVIDENCE_TYPES.PAGE_TEXT,
+      { method: 'keyword_match', keywords: ['buy outright', 'sell your vehicle', 'we buy'] }
+    ),
+    consignmentStance: buildField(
+      consignment ? consignment[0].trim() : null,
+      consignment ? CONFIDENCE_LEVELS.INFERRED : CONFIDENCE_LEVELS.MISSING,
+      source,
+      !consignment ? MISSING_REASONS.NOT_ON_WEBSITE : null,
+      EVIDENCE_TYPES.PAGE_TEXT,
+      { method: 'keyword_match', keyword: 'consignment' }
+    ),
+    nonBrandTradeIns: buildField(
+      nonBrandTrade ? nonBrandTrade[0].trim() : null,
+      nonBrandTrade ? CONFIDENCE_LEVELS.INFERRED : CONFIDENCE_LEVELS.MISSING,
+      source,
+      !nonBrandTrade ? MISSING_REASONS.NOT_ON_WEBSITE : null,
+      EVIDENCE_TYPES.PAGE_TEXT,
+      { method: 'keyword_match', keywords: ['non-brand', 'any make', 'all makes'] }
+    ),
+    primaryUsedCategories: buildField(
+      categoryPriority.length ? categoryPriority : null,
+      categoryPriority.length ? CONFIDENCE_LEVELS.INFERRED : CONFIDENCE_LEVELS.MISSING,
+      source,
+      !categoryPriority.length ? MISSING_REASONS.NOT_ON_WEBSITE : null,
+      EVIDENCE_TYPES.PAGE_TEXT,
+      { method: 'category_extraction', count: categoryPriority.length }
+    ),
   };
 
 }

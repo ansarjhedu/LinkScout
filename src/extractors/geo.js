@@ -1,6 +1,11 @@
 import parseHtml from "../utils/domParser.js";
-
-import { buildField, combinePageText, MISSING_REASONS } from "../utils/fieldBuilder.js";
+import {
+  buildField,
+  combinePageText,
+  CONFIDENCE_LEVELS,
+  EVIDENCE_TYPES,
+  MISSING_REASONS,
+} from "../utils/fieldBuilder.js";
 
 
 
@@ -159,33 +164,70 @@ export default function extractGeo(pages, napData) {
 
 
   return {
-
-    primaryCity: buildField(primaryCity, geoConfidence, geoSource),
-
-    primaryState: buildField(primaryState, geoConfidence, geoSource),
-
-    county: buildField(county, county ? "VERIFIED" : "MISSING", county ? homePage.url : null, county ? null : MISSING_REASONS.NOT_IN_SCHEMA),
-
-    metroMarket: buildField(metroMarket, metroMarket ? "VERIFIED" : "MISSING", metroMarket ? homePage.url : null, metroMarket ? null : MISSING_REASONS.NO_PAGE_CONTENT),
-
-    extendedMarket: buildField(
-
-      nearbyCities.length ? "Middle Tennessee extended market" : null,
-
-      nearbyCities.length ? "VERIFIED" : "MISSING",
-
-      nearbyCities.length ? homePage.url : null,
-
-      nearbyCities.length ? null : MISSING_REASONS.NO_PAGE_CONTENT
-
+    primaryCity: buildField(
+      primaryCity,
+      geoConfidence === "MISSING" ? CONFIDENCE_LEVELS.MISSING : CONFIDENCE_LEVELS.VERIFIED,
+      geoSource,
+      geoConfidence === "MISSING" ? MISSING_REASONS.NOT_ON_WEBSITE : null,
+      EVIDENCE_TYPES.SCHEMA,
+      { source: 'nap_data' }
     ),
-
-    nearbyCities: buildField([...new Set(nearbyCities)].slice(0, 15), nearbyCities.length > 0 ? "VERIFIED" : "MISSING", nearbyCities.length > 0 ? homePage.url : null, nearbyCities.length > 0 ? null : MISSING_REASONS.NO_PAGE_CONTENT),
-
-    lifestyleMarkets: buildField([...new Set(lifestyleMarkets)], lifestyleMarkets.length > 0 ? "VERIFIED" : "MISSING", lifestyleMarkets.length > 0 ? homePage.url : null, lifestyleMarkets.length > 0 ? null : MISSING_REASONS.NO_PAGE_CONTENT),
-
-    buyerRadius: buildField(buyerRadius, buyerRadius ? "INFERRED" : "MISSING", buyerRadius ? homePage.url : null, buyerRadius ? null : MISSING_REASONS.NO_PAGE_CONTENT),
-
+    primaryState: buildField(
+      primaryState,
+      geoConfidence === "MISSING" ? CONFIDENCE_LEVELS.MISSING : CONFIDENCE_LEVELS.VERIFIED,
+      geoSource,
+      geoConfidence === "MISSING" ? MISSING_REASONS.NOT_ON_WEBSITE : null,
+      EVIDENCE_TYPES.SCHEMA,
+      { source: 'nap_data' }
+    ),
+    county: buildField(
+      county,
+      county ? CONFIDENCE_LEVELS.INFERRED : CONFIDENCE_LEVELS.MISSING,
+      county ? homePage.url : null,
+      !county ? MISSING_REASONS.NOT_IN_SCHEMA : null,
+      EVIDENCE_TYPES.PAGE_TEXT,
+      { method: county ? 'lookup_table_or_extraction' : null }
+    ),
+    metroMarket: buildField(
+      metroMarket,
+      metroMarket ? CONFIDENCE_LEVELS.INFERRED : CONFIDENCE_LEVELS.MISSING,
+      metroMarket ? homePage.url : null,
+      !metroMarket ? MISSING_REASONS.NO_PAGE_CONTENT : null,
+      EVIDENCE_TYPES.PAGE_TEXT,
+      { method: 'regex_extraction' }
+    ),
+    extendedMarket: buildField(
+      nearbyCities.length ? "Middle Tennessee extended market" : null,
+      nearbyCities.length ? CONFIDENCE_LEVELS.INFERRED : CONFIDENCE_LEVELS.MISSING,
+      nearbyCities.length ? homePage.url : null,
+      !nearbyCities.length ? MISSING_REASONS.NOT_ON_WEBSITE : null,
+      EVIDENCE_TYPES.PAGE_TEXT,
+      { method: 'nearby_cities_inference', count: nearbyCities.length }
+    ),
+    nearbyCities: buildField(
+      nearbyCities.length > 0 ? [...new Set(nearbyCities)].slice(0, 15) : null,
+      nearbyCities.length > 0 ? CONFIDENCE_LEVELS.INFERRED : CONFIDENCE_LEVELS.MISSING,
+      nearbyCities.length > 0 ? homePage.url : null,
+      nearbyCities.length > 0 ? null : MISSING_REASONS.NOT_ON_WEBSITE,
+      EVIDENCE_TYPES.PAGE_TEXT,
+      { method: 'regex_extraction', count: nearbyCities.length }
+    ),
+    lifestyleMarkets: buildField(
+      lifestyleMarkets.length > 0 ? [...new Set(lifestyleMarkets)] : null,
+      lifestyleMarkets.length > 0 ? CONFIDENCE_LEVELS.INFERRED : CONFIDENCE_LEVELS.MISSING,
+      lifestyleMarkets.length > 0 ? homePage.url : null,
+      lifestyleMarkets.length > 0 ? null : MISSING_REASONS.NOT_ON_WEBSITE,
+      EVIDENCE_TYPES.PAGE_TEXT,
+      { method: 'keyword_match', count: lifestyleMarkets.length }
+    ),
+    buyerRadius: buildField(
+      buyerRadius,
+      buyerRadius ? CONFIDENCE_LEVELS.INFERRED : CONFIDENCE_LEVELS.MISSING,
+      buyerRadius ? homePage.url : null,
+      !buyerRadius ? MISSING_REASONS.NOT_ON_WEBSITE : null,
+      EVIDENCE_TYPES.PAGE_TEXT,
+      { method: 'nearby_cities_compilation' }
+    ),
   };
 
 }

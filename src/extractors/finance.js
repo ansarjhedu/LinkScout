@@ -1,4 +1,11 @@
 import parseHtml from "../utils/domParser.js";
+import {
+  buildField,
+  CONFIDENCE_LEVELS,
+  EVIDENCE_TYPES,
+  MISSING_REASONS,
+  buildMissingField,
+} from "../utils/fieldBuilder.js";
 
 // Lenders list to audit
 const KNOWN_LENDERS = [
@@ -103,17 +110,73 @@ export default function extractFinance(pages) {
   }
 
   const hasFinancePage = pages.some((p) => ["finance", "credit-app"].includes(p.type));
-  const confidence = hasFinancePage ? "INFERRED" : "MISSING";
-  const source = hasFinancePage ? primarySource : null;
+  const source = hasFinancePage ? primarySource : pages[0]?.url;
+  const evidenceType = hasFinancePage ? EVIDENCE_TYPES.LINK_PATTERN : EVIDENCE_TYPES.PAGE_TEXT;
 
   return {
-    financingOffered: { value: hasFinancePage, confidence: hasFinancePage ? "VERIFIED" : "MISSING", source },
-    inHouseFinancing: { value: isInHouse, confidence, source },
-    lenders: { value: lendersFound, confidence: lendersFound.length > 0 ? "INFERRED" : "MISSING", source: lendersFound.length > 0 ? source : null },
-    creditPrograms: { value: programsFound, confidence: programsFound.length > 0 ? "INFERRED" : "MISSING", source: programsFound.length > 0 ? source : null },
-    tradeEquityPolicy: { value: tradeEquityPolicy, confidence: tradeEquityPolicy ? "INFERRED" : "MISSING", source: tradeEquityPolicy ? source : null },
-    protectionProducts: { value: protectionProducts, confidence: protectionProducts ? "INFERRED" : "MISSING", source: protectionProducts ? source : null },
-    complianceSafeLanguage: { value: safeCompliancePhrase, confidence: safeCompliancePhrase ? "INFERRED" : "MISSING", source: safeCompliancePhrase ? source : null },
-    forbiddenLanguageFound: { value: forbiddenFound, confidence: "INFERRED", source }
+    financeOffered: buildField(
+      hasFinancePage,
+      hasFinancePage ? CONFIDENCE_LEVELS.VERIFIED : CONFIDENCE_LEVELS.INFERRED,
+      source,
+      null,
+      EVIDENCE_TYPES.LINK_PATTERN,
+      { method: 'page_existence', pageTypes: ['finance', 'credit-app'] }
+    ),
+    inHouseFinancing: buildField(
+      isInHouse,
+      isInHouse ? CONFIDENCE_LEVELS.INFERRED : CONFIDENCE_LEVELS.INFERRED,
+      source,
+      null,
+      EVIDENCE_TYPES.PAGE_TEXT,
+      { method: 'keyword_match', keywords: ['buy here pay here', 'bhph'] }
+    ),
+    lenders: buildField(
+      lendersFound.length > 0 ? lendersFound : null,
+      lendersFound.length > 0 ? CONFIDENCE_LEVELS.INFERRED : CONFIDENCE_LEVELS.MISSING,
+      lendersFound.length > 0 ? source : null,
+      lendersFound.length === 0 ? MISSING_REASONS.NOT_ON_WEBSITE : null,
+      EVIDENCE_TYPES.PAGE_TEXT,
+      { method: 'keyword_match', count: lendersFound.length }
+    ),
+    creditPrograms: buildField(
+      programsFound.length > 0 ? programsFound : null,
+      programsFound.length > 0 ? CONFIDENCE_LEVELS.INFERRED : CONFIDENCE_LEVELS.MISSING,
+      programsFound.length > 0 ? source : null,
+      programsFound.length === 0 ? MISSING_REASONS.NOT_ON_WEBSITE : null,
+      EVIDENCE_TYPES.PAGE_TEXT,
+      { method: 'keyword_match', count: programsFound.length }
+    ),
+    tradeEquityPolicy: buildField(
+      tradeEquityPolicy,
+      tradeEquityPolicy ? CONFIDENCE_LEVELS.INFERRED : CONFIDENCE_LEVELS.MISSING,
+      source,
+      !tradeEquityPolicy ? MISSING_REASONS.NOT_ON_WEBSITE : null,
+      EVIDENCE_TYPES.PAGE_TEXT,
+      { method: 'regex_extraction' }
+    ),
+    protectionProducts: buildField(
+      protectionProducts,
+      protectionProducts ? CONFIDENCE_LEVELS.INFERRED : CONFIDENCE_LEVELS.MISSING,
+      source,
+      !protectionProducts ? MISSING_REASONS.NOT_ON_WEBSITE : null,
+      EVIDENCE_TYPES.PAGE_TEXT,
+      { method: 'regex_extraction', products: ['gap', 'warranty', 'protection'] }
+    ),
+    complianceSafeLanguage: buildField(
+      safeCompliancePhrase,
+      safeCompliancePhrase ? CONFIDENCE_LEVELS.INFERRED : CONFIDENCE_LEVELS.MISSING,
+      source,
+      !safeCompliancePhrase ? MISSING_REASONS.NOT_ON_WEBSITE : null,
+      EVIDENCE_TYPES.PAGE_TEXT,
+      { method: 'compliance_check' }
+    ),
+    forbiddenLanguageFound: buildField(
+      forbiddenFound,
+      forbiddenFound ? CONFIDENCE_LEVELS.INFERRED : CONFIDENCE_LEVELS.INFERRED,
+      source,
+      null,
+      EVIDENCE_TYPES.PAGE_TEXT,
+      { method: 'compliance_violation_check', isWarning: forbiddenFound }
+    ),
   };
 }

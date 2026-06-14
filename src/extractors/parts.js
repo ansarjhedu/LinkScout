@@ -1,4 +1,10 @@
-import { buildField, combinePageText, MISSING_REASONS } from "../utils/fieldBuilder.js";
+import {
+  buildField,
+  combinePageText,
+  CONFIDENCE_LEVELS,
+  EVIDENCE_TYPES,
+  MISSING_REASONS,
+} from "../utils/fieldBuilder.js";
 
 
 
@@ -39,21 +45,62 @@ export default function extractParts(pages) {
 
 
   return {
-
-    oemSupport: buildField(oemSupport, oemSupport ? "VERIFIED" : "MISSING", oemSupport ? source : null, oemSupport ? null : MISSING_REASONS.NO_PAGE_CONTENT),
-
-    aftermarket: buildField(aftermarket, aftermarket ? "VERIFIED" : "MISSING", aftermarket ? source : null, aftermarket ? null : MISSING_REASONS.NO_PAGE_CONTENT),
-
-    apparelGear: buildField(apparelGear, apparelGear ? "INFERRED" : "MISSING", apparelGear ? source : null, apparelGear ? null : MISSING_REASONS.NO_PAGE_CONTENT),
-
-    specialOrders: buildField(specialOrders, specialOrders ? "VERIFIED" : "MISSING", specialOrders ? source : null, specialOrders ? null : MISSING_REASONS.NO_PAGE_CONTENT),
-
-    fitmentGuidance: buildField(fitmentGuidance, fitmentGuidance ? "INFERRED" : "MISSING", fitmentGuidance ? source : null, fitmentGuidance ? null : MISSING_REASONS.NO_PAGE_CONTENT),
-
-    serviceIntegration: buildField(partsPage && servicePage ? "Parts support service department" : null, partsPage ? "VERIFIED" : "MISSING", source, partsPage ? null : MISSING_REASONS.NO_MATCHING_LINK),
-
-    lifecycleSupport: buildField(/maintenance|customiz/i.test(text) ? "Ongoing maintenance and customization support" : null, /maintenance/i.test(text) ? "INFERRED" : "MISSING", source, /maintenance/i.test(text) ? null : MISSING_REASONS.NO_PAGE_CONTENT),
-
+    oemSupport: buildField(
+      oemSupport,
+      oemSupport ? CONFIDENCE_LEVELS.INFERRED : CONFIDENCE_LEVELS.MISSING,
+      source,
+      !oemSupport ? MISSING_REASONS.NOT_ON_WEBSITE : null,
+      EVIDENCE_TYPES.PAGE_TEXT,
+      { method: 'keyword_match', keywords: ['OEM', 'genuine parts'] }
+    ),
+    aftermarket: buildField(
+      aftermarket,
+      aftermarket ? CONFIDENCE_LEVELS.INFERRED : CONFIDENCE_LEVELS.MISSING,
+      source,
+      !aftermarket ? MISSING_REASONS.NOT_ON_WEBSITE : null,
+      EVIDENCE_TYPES.PAGE_TEXT,
+      { method: 'keyword_match', keyword: 'aftermarket warranty' }
+    ),
+    apparelGear: buildField(
+      apparelGear,
+      apparelGear ? CONFIDENCE_LEVELS.INFERRED : CONFIDENCE_LEVELS.MISSING,
+      source,
+      !apparelGear ? MISSING_REASONS.NOT_ON_WEBSITE : null,
+      EVIDENCE_TYPES.PAGE_TEXT,
+      { method: 'keyword_match', keywords: ['apparel', 'gear', 'helmet', 'jacket'] }
+    ),
+    specialOrders: buildField(
+      specialOrders,
+      specialOrders ? CONFIDENCE_LEVELS.INFERRED : CONFIDENCE_LEVELS.MISSING,
+      source,
+      !specialOrders ? MISSING_REASONS.NOT_ON_WEBSITE : null,
+      EVIDENCE_TYPES.PAGE_TEXT,
+      { method: 'keyword_match', keywords: ['special order', 'order parts'] }
+    ),
+    fitmentGuidance: buildField(
+      fitmentGuidance,
+      fitmentGuidance ? CONFIDENCE_LEVELS.INFERRED : CONFIDENCE_LEVELS.MISSING,
+      source,
+      !fitmentGuidance ? MISSING_REASONS.NOT_ON_WEBSITE : null,
+      EVIDENCE_TYPES.PAGE_TEXT,
+      { method: 'keyword_match', keywords: ['fitment', 'compatibility'] }
+    ),
+    serviceIntegration: buildField(
+      partsPage && servicePage ? "Parts support service department" : null,
+      partsPage ? CONFIDENCE_LEVELS.VERIFIED : CONFIDENCE_LEVELS.MISSING,
+      source,
+      !partsPage ? MISSING_REASONS.NO_MATCHING_LINK : null,
+      EVIDENCE_TYPES.LINK_PATTERN,
+      { method: 'page_coexistence', hasPartsPage: !!partsPage, hasServicePage: !!servicePage }
+    ),
+    lifecycleSupport: buildField(
+      /maintenance|customiz/i.test(text) ? "Ongoing maintenance and customization support" : null,
+      /maintenance/i.test(text) ? CONFIDENCE_LEVELS.INFERRED : CONFIDENCE_LEVELS.MISSING,
+      source,
+      !/maintenance/i.test(text) ? MISSING_REASONS.NOT_ON_WEBSITE : null,
+      EVIDENCE_TYPES.PAGE_TEXT,
+      { method: 'keyword_match', keywords: ['maintenance', 'customization'] }
+    ),
   };
 
 }

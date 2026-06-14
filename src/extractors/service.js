@@ -1,4 +1,10 @@
-import { buildField, combinePageText, MISSING_REASONS } from "../utils/fieldBuilder.js";
+import {
+  buildField,
+  combinePageText,
+  CONFIDENCE_LEVELS,
+  EVIDENCE_TYPES,
+  MISSING_REASONS,
+} from "../utils/fieldBuilder.js";
 
 
 
@@ -53,95 +59,78 @@ export default function extractService(pages) {
 
 
   return {
-
     brandsServiced: buildField(
-
-      brandsServiced,
-
-      brandsServiced.length ? "VERIFIED" : "MISSING",
-
-      brandsServiced.length ? source : null,
-
-      brandsServiced.length ? null : MISSING_REASONS.NO_PAGE_CONTENT
-
+      brandsServiced.length ? brandsServiced : null,
+      brandsServiced.length ? CONFIDENCE_LEVELS.INFERRED : CONFIDENCE_LEVELS.MISSING,
+      source,
+      !brandsServiced.length ? MISSING_REASONS.NO_PAGE_CONTENT : null,
+      EVIDENCE_TYPES.PAGE_TEXT,
+      { method: 'keyword_match', keywords: ['service all major', 'authorized service'] }
     ),
-
     nonFranchisePolicy: buildField(
-
-      nonFranchise?.[0]?.trim() || null,
-
-      nonFranchise ? "VERIFIED" : "MISSING",
-
-      nonFranchise ? source : null,
-
-      nonFranchise ? null : MISSING_REASONS.NO_PAGE_CONTENT
-
+      nonFranchise ? nonFranchise[0].trim() : null,
+      nonFranchise ? CONFIDENCE_LEVELS.INFERRED : CONFIDENCE_LEVELS.MISSING,
+      source,
+      !nonFranchise ? MISSING_REASONS.NOT_ON_WEBSITE : null,
+      EVIDENCE_TYPES.PAGE_TEXT,
+      { method: 'regex_extraction' }
     ),
-
     unitAgeLimits: buildField(
-
-      unitAge?.[0]?.trim() || null,
-
-      unitAge ? "VERIFIED" : "MISSING",
-
-      unitAge ? source : null,
-
-      unitAge ? null : MISSING_REASONS.NO_PAGE_CONTENT
-
+      unitAge ? unitAge[0].trim() : null,
+      unitAge ? CONFIDENCE_LEVELS.INFERRED : CONFIDENCE_LEVELS.MISSING,
+      source,
+      !unitAge ? MISSING_REASONS.NOT_ON_WEBSITE : null,
+      EVIDENCE_TYPES.PAGE_TEXT,
+      { method: 'regex_extraction' }
     ),
-
     specialties: buildField(
-
-      specialties,
-
-      specialties.length ? "VERIFIED" : "MISSING",
-
-      specialties.length ? source : null,
-
-      specialties.length ? null : MISSING_REASONS.NO_PAGE_CONTENT
-
+      specialties.length ? specialties : null,
+      specialties.length ? CONFIDENCE_LEVELS.INFERRED : CONFIDENCE_LEVELS.MISSING,
+      source,
+      !specialties.length ? MISSING_REASONS.NOT_ON_WEBSITE : null,
+      EVIDENCE_TYPES.PAGE_TEXT,
+      { method: 'keyword_match', count: specialties.length }
     ),
-
     diagnostics: buildField(
-
-      diagnostics?.[0]?.trim() || null,
-
-      diagnostics ? "INFERRED" : "MISSING",
-
-      diagnostics ? source : null,
-
-      diagnostics ? null : MISSING_REASONS.NO_PAGE_CONTENT
-
+      diagnostics ? diagnostics[0].trim() : null,
+      diagnostics ? CONFIDENCE_LEVELS.INFERRED : CONFIDENCE_LEVELS.MISSING,
+      source,
+      !diagnostics ? MISSING_REASONS.NOT_ON_WEBSITE : null,
+      EVIDENCE_TYPES.PAGE_TEXT,
+      { method: 'regex_extraction' }
     ),
-
     seasonalPrep: buildField(
-
-      seasonalPrep?.[0]?.trim() || null,
-
-      seasonalPrep ? "INFERRED" : "MISSING",
-
-      seasonalPrep ? source : null,
-
-      seasonalPrep ? null : MISSING_REASONS.NO_PAGE_CONTENT
-
+      seasonalPrep ? seasonalPrep[0].trim() : null,
+      seasonalPrep ? CONFIDENCE_LEVELS.INFERRED : CONFIDENCE_LEVELS.MISSING,
+      source,
+      !seasonalPrep ? MISSING_REASONS.NOT_ON_WEBSITE : null,
+      EVIDENCE_TYPES.PAGE_TEXT,
+      { method: 'regex_extraction' }
     ),
-
     accessoryInstall: buildField(
-
       accessoryInstall ? "Accessory installation offered" : null,
-
-      accessoryInstall ? "INFERRED" : "MISSING",
-
-      accessoryInstall ? source : null,
-
-      accessoryInstall ? null : MISSING_REASONS.NO_PAGE_CONTENT
-
+      accessoryInstall ? CONFIDENCE_LEVELS.INFERRED : CONFIDENCE_LEVELS.MISSING,
+      source,
+      !accessoryInstall ? MISSING_REASONS.NOT_ON_WEBSITE : null,
+      EVIDENCE_TYPES.PAGE_TEXT,
+      { method: 'keyword_match' }
     ),
-
-    communicationStrengths: buildField(null, "MISSING", null, MISSING_REASONS.INTERNAL_ONLY),
-
-    riskNotes: buildField(null, "MISSING", null, MISSING_REASONS.INTERNAL_ONLY),
-
+    communicationStrengths: buildField(
+      null,
+      CONFIDENCE_LEVELS.MISSING,
+      null,
+      MISSING_REASONS.INTERNAL_ONLY,
+      EVIDENCE_TYPES.PAGE_TEXT,
+      { reason: 'internal_analysis_only' }
+    ),
+    riskNotes: buildField(
+      null,
+      CONFIDENCE_LEVELS.MISSING,
+      null,
+      MISSING_REASONS.INTERNAL_ONLY,
+      EVIDENCE_TYPES.PAGE_TEXT,
+      { reason: 'internal_analysis_only' }
+    ),
   };
 
 }

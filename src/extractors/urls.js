@@ -1,5 +1,10 @@
 import parseHtml from "../utils/domParser.js";
-import { buildField, MISSING_REASONS } from "../utils/fieldBuilder.js";
+import {
+  buildField,
+  CONFIDENCE_LEVELS,
+  EVIDENCE_TYPES,
+  MISSING_REASONS,
+} from "../utils/fieldBuilder.js";
 import { classifyUrl, deploymentKeyForType, classifySocialUrl } from "../crawler/urlClassifier.js";
 import { KNOWN_BRANDS } from "../config/brandParents.js";
 
@@ -159,23 +164,42 @@ export default function extractUrls(crawledPages, discoveredUrls, targetUrl, har
 
     if (bestMatch) {
       const crawled = crawledPages.find((p) => p.url === bestMatch);
+      const isVerified = key === "home" || crawled?.status === 200;
       deploymentUrls[key] = buildField(
         bestMatch,
-        key === "home" || crawled?.status === 200 ? "VERIFIED" : "INFERRED",
-        identifyLinkContext(bestMatch, homePage.html)
+        isVerified ? CONFIDENCE_LEVELS.VERIFIED : CONFIDENCE_LEVELS.INFERRED,
+        identifyLinkContext(bestMatch, homePage.html),
+        null,
+        isVerified ? EVIDENCE_TYPES.EXPLICIT_TAG : EVIDENCE_TYPES.LINK_PATTERN,
+        { urlType: key, httpStatus: crawled?.status }
       );
     } else {
-      deploymentUrls[key] = buildField(null, "MISSING", null, MISSING_REASONS.NO_MATCHING_LINK);
+      deploymentUrls[key] = buildField(
+        null,
+        CONFIDENCE_LEVELS.MISSING,
+        null,
+        MISSING_REASONS.NO_MATCHING_LINK,
+        EVIDENCE_TYPES.LINK_PATTERN,
+        { urlType: key }
+      );
     }
   }
 
   const brandUrls = extractBrandInventoryUrls(allLinks, homePage, targetUrl, safePages);
 
+  const brandConfidence = brandUrls.length
+    ? brandUrls.some((b) => b.confidence === "VERIFIED")
+      ? CONFIDENCE_LEVELS.VERIFIED
+      : CONFIDENCE_LEVELS.INFERRED
+    : CONFIDENCE_LEVELS.MISSING;
+
   deploymentUrls.brandInventoryUrls = buildField(
-    brandUrls,
-    brandUrls.length ? (brandUrls.some((b) => b.confidence === "VERIFIED") ? "VERIFIED" : "INFERRED") : "MISSING",
+    brandUrls.length ? brandUrls : null,
+    brandConfidence,
     brandUrls.length ? homePage.url : null,
-    brandUrls.length ? null : "No brand-specific inventory URLs found — site uses shared inventory search only"
+    !brandUrls.length ? MISSING_REASONS.NOT_ON_WEBSITE : null,
+    EVIDENCE_TYPES.LINK_PATTERN,
+    { method: 'brand_url_extraction', count: brandUrls.length }
   );
 
   const registry = buildLinkRegistry(allLinks, safePages, homePage.html);

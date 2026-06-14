@@ -1,6 +1,12 @@
 import parseHtml from "../utils/domParser.js";
-
 import { BRAND_PARENT_MAP, KNOWN_BRANDS, BRAND_PRODUCT_HINTS } from "../config/brandParents.js";
+import {
+  buildField,
+  fieldFromSchema,
+  CONFIDENCE_LEVELS,
+  EVIDENCE_TYPES,
+  MISSING_REASONS,
+} from "../utils/fieldBuilder.js";
 
 /**
  * Standard product categories we search for inside site content.
@@ -101,21 +107,45 @@ export default function extractBrands(pages) {
         // Collect or update the entry
         if (!brandsFound.has(brand)) {
           brandsFound.set(brand, {
-            brandName: { value: brand, confidence: "VERIFIED", source: matchedSourceUrl },
-            parentCompany: {
-              value: parentCompany,
-              confidence: parentConfidence,
-              source: parentCompany ? null : matchedSourceUrl,
-              reason: parentCompany ? null : "Parent company not in known manufacturer database",
-            },
-            productLines: { value: productLines, confidence: "INFERRED", source: matchedSourceUrl },
-            authorityRole: { value: authorityRole, confidence: "INFERRED", source: matchedSourceUrl }
+            brandName: buildField(
+              brand,
+              CONFIDENCE_LEVELS.VERIFIED,
+              matchedSourceUrl,
+              null,
+              EVIDENCE_TYPES.PAGE_TEXT,
+              { evidenceTypes: evidenceText.split('. ').filter(Boolean) }
+            ),
+            parentCompany: buildField(
+              parentCompany,
+              parentCompany ? CONFIDENCE_LEVELS.VERIFIED : CONFIDENCE_LEVELS.MISSING,
+              parentCompany ? null : matchedSourceUrl,
+              !parentCompany ? MISSING_REASONS.NOT_ON_WEBSITE : null,
+              EVIDENCE_TYPES.SCHEMA,
+              { source: 'known_manufacturer_database' }
+            ),
+            productLines: buildField(
+              productLines,
+              CONFIDENCE_LEVELS.INFERRED,
+              matchedSourceUrl,
+              null,
+              EVIDENCE_TYPES.PAGE_TEXT,
+              { method: 'keyword_extraction', count: productLines.length }
+            ),
+            authorityRole: buildField(
+              authorityRole,
+              CONFIDENCE_LEVELS.INFERRED,
+              matchedSourceUrl,
+              null,
+              EVIDENCE_TYPES.PAGE_TEXT,
+              { method: 'text_pattern_matching', keywords: ['authorized', 'certified', 'franchised', 'official'] }
+            )
           });
         } else {
           // If already found, merge product lines to compile a complete list
           const existing = brandsFound.get(brand);
           const mergedProducts = [...new Set([...existing.productLines.value, ...productLines])];
           existing.productLines.value = mergedProducts;
+          existing.productLines.metadata.count = mergedProducts.length;
           if (authorityRole === "Authorized Dealer") {
             existing.authorityRole.value = "Authorized Dealer";
           }

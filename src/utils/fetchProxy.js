@@ -2,6 +2,48 @@ import getLogger from "./logger.js";
 import crawlConfig from "../config/crawlConfig.js";
 import { PROXY_PROVIDERS } from "./proxyProviders.js";
 
+const isNode = typeof process !== "undefined" && process?.versions?.node;
+
+function getProxyEnvironmentUrl() {
+  if (!isNode) return null;
+  return (
+    crawlConfig.proxyUrl ||
+    process.env.HTTPS_PROXY ||
+    process.env.https_proxy ||
+    process.env.HTTP_PROXY ||
+    process.env.http_proxy ||
+    null
+  );
+}
+
+function defaultFetchHeaders() {
+  return {
+    Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
+  };
+}
+
+async function createProxyAgent(proxyUrl) {
+  if (!proxyUrl) return undefined;
+  const { HttpsProxyAgent } = await import("https-proxy-agent");
+  return new HttpsProxyAgent(proxyUrl);
+}
+
+async function directNodeFetchUrl(url, method, signal, proxyUrl) {
+  const { default: nodeFetch } = await import("node-fetch");
+  const requestOptions = {
+    method,
+    signal,
+    headers: defaultFetchHeaders(),
+  };
+
+  if (proxyUrl) {
+    requestOptions.agent = await createProxyAgent(proxyUrl);
+  }
+
+  return nodeFetch(url, requestOptions);
+}
+
 /**
  * Performs a CORS-safe HTTP request by rotating through multiple public proxy providers.
  */
@@ -15,6 +57,41 @@ export default async function fetchProxy(url, options = {}) {
   const logger = getLogger();
   let lastError = null;
 
+  if (isNode) {
+    const nodeProxyUrl = getProxyEnvironmentUrl();
+    const startTime = performance.now();
+    const controller = new AbortController();
+    const timerId = setTimeout(() => controller.abort(), timeout);
+
+    try {
+      const response = await directNodeFetchUrl(url, method === "HEAD" ? "GET" : method, controller.signal, nodeProxyUrl);
+      clearTimeout(timerId);
+      const durationMs = Math.round(performance.now() - startTime);
+
+      if (!response.ok) {
+        throw new Error(`direct fetch HTTP ${response.status}`);
+      }
+
+      const html = await response.text();
+      if (!html || html.length < 10) {
+        throw new Error("direct fetch returned empty body");
+      }
+
+      const proxyNote = nodeProxyUrl ? ` via proxy ${nodeProxyUrl}` : "";
+      logger.add(url, 200, durationMs, `OK via direct fetch${proxyNote}`);
+      return { html, status: 200, finalUrl: url, ok: true, proxyUsed: nodeProxyUrl };
+    } catch (error) {
+      clearTimeout(timerId);
+      const durationMs = Math.round(performance.now() - startTime);
+      const isTimeout = error.name === "AbortError";
+      const detail = isTimeout ? "Connection timed out" : error.message;
+      const proxyNote = nodeProxyUrl ? ` using proxy ${nodeProxyUrl}` : " without proxy";
+      logger.add(url, isTimeout ? "TIMEOUT" : "ERR", durationMs, `direct fetch failed${proxyNote}: ${detail}`);
+      lastError = error;
+      // Fall through to public CORS proxy providers if direct fetch fails
+    }
+  }
+
   for (let attempt = 0; attempt <= retries; attempt++) {
     for (const provider of PROXY_PROVIDERS) {
       const startTime = performance.now();
@@ -26,7 +103,10 @@ export default async function fetchProxy(url, options = {}) {
         const response = await fetch(proxyUrl, {
           method: method === "HEAD" ? "GET" : method,
           signal: controller.signal,
-          headers: { Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8" },
+          headers: {
+            Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
+          },
         });
 
         clearTimeout(timerId);

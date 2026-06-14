@@ -1,5 +1,13 @@
 import parseHtml from "../utils/domParser.js";
-import { buildField } from "../utils/fieldBuilder.js";
+import {
+  buildField,
+  fieldFromSchema,
+  mergeFields,
+  CONFIDENCE_LEVELS,
+  EVIDENCE_TYPES,
+  MISSING_REASONS,
+  buildMissingField,
+} from "../utils/fieldBuilder.js";
 
 function parseHoursFromText(text) {
   if (!text) return null;
@@ -104,33 +112,16 @@ export default function extractNap(pages, targetUrl, socialHarvest = []) {
   }
 
   const socialPlats = {
-    facebook: "facebook.com", instagram: "instagram.com", youtube: "youtube.com",
-    tiktok: "tiktok.com", twitter: ["twitter.com", "x.com"], linkedin: "linkedin.com"
+    facebook: "facebook.com",
+    instagram: "instagram.com",
+    youtube: "youtube.com",
+    tiktok: "tiktok.com",
+    twitter: ["twitter.com", "x.com"],
+    linkedin: "linkedin.com"
   };
-  const socialUrls = {};
 
-  for (const page of pages) {
-    const hrefs = parseHtml(page.html).attrAll("a[href]", "href");
-    for (const [plat, domain] of Object.entries(socialPlats)) {
-      if (socialUrls[plat]?.value) continue;
-      const domains = Array.isArray(domain) ? domain : [domain];
-      const url = hrefs.find((h) => domains.some((d) => h.includes(d)));
-      if (url) socialUrls[plat] = buildField(url, "VERIFIED", page.url);
-    }
-  }
-
-  for (const entry of socialHarvest) {
-    const plat = entry.socialPlatform;
-    if (plat && !socialUrls[plat]?.value) {
-      socialUrls[plat] = buildField(entry.url, "VERIFIED", homePage.url);
-    }
-  }
-
-  for (const plat of Object.keys(socialPlats)) {
-    if (!socialUrls[plat]) socialUrls[plat] = buildField(null, "MISSING", null, "No link to this platform found in navigation, footer, or page content");
-  }
-
-  const confidence = schema ? "VERIFIED" : "INFERRED";
+  const confidence = schema ? CONFIDENCE_LEVELS.VERIFIED : CONFIDENCE_LEVELS.INFERRED;
+  const evidenceType = schema ? EVIDENCE_TYPES.SCHEMA : EVIDENCE_TYPES.PAGE_TEXT;
   const source = schema ? schemaSource : domFallback.sourceUrl;
 
   let salesHours = domFallback.salesHours;
@@ -139,25 +130,151 @@ export default function extractNap(pages, targetUrl, socialHarvest = []) {
     salesHours = JSON.stringify(schema.openingHoursSpecification);
   }
 
+  // Build all fields with proper evidence tracking
+  const dealershipNameField = mergeFields([
+    schema?.name ? fieldFromSchema(schema, 'name', source) : null,
+    domFallback.dealershipName ? buildField(
+      domFallback.dealershipName,
+      CONFIDENCE_LEVELS.INFERRED,
+      source,
+      null,
+      EVIDENCE_TYPES.PAGE_TEXT,
+      { extractedFrom: 'title_or_h1' }
+    ) : null,
+  ]) || buildMissingField(MISSING_REASONS.NOT_ON_WEBSITE);
+
+  const legalNameField = mergeFields([
+    schema?.legalName ? fieldFromSchema(schema, 'legalName', source) : null,
+    domFallback.legalName ? buildField(
+      domFallback.legalName,
+      CONFIDENCE_LEVELS.INFERRED,
+      source,
+      null,
+      EVIDENCE_TYPES.PAGE_TEXT,
+      { extractedFrom: 'footer_regex' }
+    ) : null,
+  ]) || buildMissingField(MISSING_REASONS.NOT_IN_SCHEMA);
+
+  const dbaNameField = schema?.alternateName
+    ? fieldFromSchema(schema, 'alternateName', source)
+    : buildMissingField(MISSING_REASONS.NOT_ON_WEBSITE);
+
+  // Address components
+  const streetField = mergeFields([
+    street ? buildField(street, confidence, source, null, evidenceType, { component: 'street' }) : null,
+  ]) || buildMissingField(MISSING_REASONS.NOT_ON_WEBSITE);
+
+  const cityField = mergeFields([
+    city ? buildField(city, confidence, source, null, evidenceType, { component: 'city' }) : null,
+  ]) || buildMissingField(MISSING_REASONS.NOT_ON_WEBSITE);
+
+  const stateField = mergeFields([
+    state ? buildField(state, confidence, source, null, evidenceType, { component: 'state' }) : null,
+  ]) || buildMissingField(MISSING_REASONS.NOT_ON_WEBSITE);
+
+  const zipField = mergeFields([
+    zip ? buildField(zip, confidence, source, null, evidenceType, { component: 'zip' }) : null,
+  ]) || buildMissingField(MISSING_REASONS.NOT_ON_WEBSITE);
+
+  const phoneField = mergeFields([
+    schema?.telephone ? fieldFromSchema(schema, 'telephone', source) : null,
+    domFallback.phone ? buildField(
+      domFallback.phone,
+      CONFIDENCE_LEVELS.INFERRED,
+      source,
+      null,
+      EVIDENCE_TYPES.PAGE_TEXT,
+      { method: 'tel_link_or_regex' }
+    ) : null,
+  ]) || buildMissingField(MISSING_REASONS.NOT_ON_WEBSITE);
+
+  const salesHoursField = salesHours
+    ? buildField(salesHours, confidence, source, null, EVIDENCE_TYPES.PAGE_TEXT, { hoursType: 'sales' })
+    : buildMissingField(MISSING_REASONS.NOT_ON_WEBSITE);
+
+  const serviceHoursField = serviceHours
+    ? buildField(serviceHours, CONFIDENCE_LEVELS.INFERRED, source, null, EVIDENCE_TYPES.PAGE_TEXT, { hoursType: 'service' })
+    : buildMissingField(MISSING_REASONS.NOT_ON_WEBSITE);
+
+  const latField = schema?.geo?.latitude
+    ? buildField(schema.geo.latitude, CONFIDENCE_LEVELS.VERIFIED, source, null, EVIDENCE_TYPES.SCHEMA, { via: 'geo.latitude' })
+    : (domFallback.lat ? buildField(domFallback.lat, CONFIDENCE_LEVELS.INFERRED, source, null, EVIDENCE_TYPES.PAGE_TEXT, { via: 'maps_embed' }) : buildMissingField());
+
+  const lngField = schema?.geo?.longitude
+    ? buildField(schema.geo.longitude, CONFIDENCE_LEVELS.VERIFIED, source, null, EVIDENCE_TYPES.SCHEMA, { via: 'geo.longitude' })
+    : (domFallback.lng ? buildField(domFallback.lng, CONFIDENCE_LEVELS.INFERRED, source, null, EVIDENCE_TYPES.PAGE_TEXT, { via: 'maps_embed' }) : buildMissingField());
+
+  const logoUrlField = schema?.logo
+    ? fieldFromSchema(schema, 'logo', source)
+    : (domFallback.logoUrl ? buildField(domFallback.logoUrl, CONFIDENCE_LEVELS.INFERRED, source, null, EVIDENCE_TYPES.EXPLICIT_TAG, { via: 'img_or_link' }) : buildMissingField(MISSING_REASONS.NOT_ON_WEBSITE));
+
+  const googleBusinessUrlField = gBus
+    ? buildField(gBus, CONFIDENCE_LEVELS.VERIFIED, homePage.url, null, EVIDENCE_TYPES.EXPLICIT_TAG)
+    : buildMissingField(MISSING_REASONS.NO_MATCHING_LINK);
+
+  const googleMapsUrlField = gMaps
+    ? buildField(gMaps, CONFIDENCE_LEVELS.VERIFIED, homePage.url, null, EVIDENCE_TYPES.EXPLICIT_TAG)
+    : buildMissingField(MISSING_REASONS.NO_MATCHING_LINK);
+
+  const googleReviewUrlField = gRev
+    ? buildField(gRev, CONFIDENCE_LEVELS.VERIFIED, homePage.url, null, EVIDENCE_TYPES.EXPLICIT_TAG)
+    : buildMissingField(MISSING_REASONS.NO_MATCHING_LINK);
+
+  // Build social URLs with new evidence tracking
+  const socialUrls = {};
+  for (const page of pages) {
+    const hrefs = parseHtml(page.html).attrAll("a[href]", "href");
+    for (const [plat, domain] of Object.entries(socialPlats)) {
+      if (socialUrls[plat]?.value) continue;
+      const domains = Array.isArray(domain) ? domain : [domain];
+      const url = hrefs.find((h) => domains.some((d) => h.includes(d)));
+      if (url) {
+        socialUrls[plat] = buildField(url, CONFIDENCE_LEVELS.VERIFIED, page.url, null, EVIDENCE_TYPES.EXPLICIT_TAG, { platform: plat });
+      }
+    }
+  }
+
+  for (const entry of socialHarvest) {
+    const plat = entry.socialPlatform;
+    if (plat && !socialUrls[plat]?.value) {
+      socialUrls[plat] = buildField(
+        entry.url,
+        CONFIDENCE_LEVELS.VERIFIED,
+        homePage.url,
+        null,
+        EVIDENCE_TYPES.EXPLICIT_TAG,
+        { platform: plat, source: 'harvested_links' }
+      );
+    }
+  }
+
+
+  // Mark all social platforms (found or not found)
+  for (const plat of Object.keys(socialPlats)) {
+    if (!socialUrls[plat]) {
+      socialUrls[plat] = buildMissingField(MISSING_REASONS.NO_MATCHING_LINK);
+    }
+  }
+
   return {
-    dealershipName: buildField(schema?.name || domFallback.dealershipName, confidence, source),
-    legalName: buildField(schema?.legalName || domFallback.legalName, domFallback.legalName ? "INFERRED" : "MISSING", source, domFallback.legalName ? null : "Legal entity name not found in schema.org or footer"),
-    dbaName: buildField(schema?.alternateName || null, schema?.alternateName ? confidence : "MISSING", source, schema?.alternateName ? null : "DBA name not published on website"),
+    dealershipName: dealershipNameField,
+    legalName: legalNameField,
+    dbaName: dbaNameField,
     address: {
-      street: buildField(street, confidence, source),
-      city: buildField(city, confidence, source),
-      state: buildField(state, confidence, source),
-      zip: buildField(zip, confidence, source)
+      street: streetField,
+      city: cityField,
+      state: stateField,
+      zip: zipField,
     },
-    phone: buildField(schema?.telephone || domFallback.phone, confidence, source),
-    salesHours: buildField(salesHours, salesHours ? confidence : "MISSING", source),
-    serviceHours: buildField(serviceHours, serviceHours ? "INFERRED" : "MISSING", serviceHours ? source : null),
-    lat: buildField(schema?.geo?.latitude || domFallback.lat, confidence, source),
-    lng: buildField(schema?.geo?.longitude || domFallback.lng, confidence, source),
-    logoUrl: buildField(schema?.logo || domFallback.logoUrl, domFallback.logoUrl || schema?.logo ? confidence : "MISSING", source, domFallback.logoUrl || schema?.logo ? null : "Logo URL not found in page markup or schema.org"),
-    googleBusinessUrl: buildField(gBus, gBus ? "VERIFIED" : "MISSING", gBus ? homePage.url : null, gBus ? null : "No Google Business Profile link found on crawled pages"),
-    googleMapsUrl: buildField(gMaps, gMaps ? "VERIFIED" : "MISSING", gMaps ? homePage.url : null, gMaps ? null : "No Google Maps embed or link found on crawled pages"),
-    googleReviewUrl: buildField(gRev, gRev ? "VERIFIED" : "MISSING", gRev ? homePage.url : null, gRev ? null : "No Google review link found on crawled pages"),
-    socialUrls
+    phone: phoneField,
+    salesHours: salesHoursField,
+    serviceHours: serviceHoursField,
+    lat: latField,
+    lng: lngField,
+    logoUrl: logoUrlField,
+    googleBusinessUrl: googleBusinessUrlField,
+    googleMapsUrl: googleMapsUrlField,
+    googleReviewUrl: googleReviewUrlField,
+    socialUrls,
   };
 }
