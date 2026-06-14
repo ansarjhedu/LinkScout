@@ -90,7 +90,18 @@ export function normalizeUrl(urlStr) {
   try {
     const u = new URL(urlStr);
     u.hash = "";
-    let path = u.pathname.replace(/\/+$/, "") || "/";
+    // Remove common tracking/query params but preserve meaningful search params
+    const tracking = [/^utm_/, /^fbclid$/, /^gclid$/i, /^_hs_test$/i];
+    if (u.search) {
+      const params = new URLSearchParams(u.search);
+      for (const key of Array.from(params.keys())) {
+        if (tracking.some((re) => re.test(key))) params.delete(key);
+      }
+      const search = params.toString();
+      const path = u.pathname.replace(/\/+$/g, "") || "/";
+      return search ? `${u.origin}${path}?${search}` : `${u.origin}${path}`;
+    }
+    const path = u.pathname.replace(/\/+$/g, "") || "/";
     return `${u.origin}${path}`;
   } catch {
     return urlStr;

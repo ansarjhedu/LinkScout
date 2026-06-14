@@ -127,7 +127,8 @@ export default async function orchestrateCrawl(targetUrl, onProgress) {
   allDiscovered = [...new Set([...allDiscovered, ...mergedHarvest.internal])];
 
   if (newLinks.length > 0) {
-    const extraTargets = prioritizeUrls(newLinks, 20).filter(
+    // Expand second-pass discovery budget to match overall crawl budget
+    const extraTargets = prioritizeUrls(newLinks, crawlConfig.maxCrawlPages).filter(
       (u) => !crawledPages.some((p) => p.url === u)
     );
 
