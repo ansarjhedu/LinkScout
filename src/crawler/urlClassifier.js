@@ -1,3 +1,5 @@
+import parseHtml from "../utils/domParser.js";
+
 /**
  * Central URL classification registry — CMS-agnostic patterns.
  */
@@ -8,6 +10,7 @@ const CLASSIFICATION_RULES = [
   { type: "inventory-new", pattern: /new-inventory|inventory\/new|search\/new|search-inventory\/new|vehicles\/new|all-new|inventory-new|\/new\//i },
   { type: "inventory-used", pattern: /used-inventory|inventory\/used|search\/used|search-inventory\/pre-owned|pre-owned|preowned|inventory-used|\/used\//i },
   { type: "product", pattern: /\/product[s]?\/|\/vehicle[s]?\/|\/unit[s]?\/|\/listing[s]?\/|\/vdp\/|\/detail[s]?\/|\/item[s]?\/|\/p\/|\/sku\/|\/motorcycle[s]?\/[^/]+$/i },
+  { type: "brand-inventory", pattern: /\/(polaris|honda|kawasaki|can-?am|sea-?doo|ktm|suzuki|spyder|atlas|harley|indian)(?:[-\/]|$).*\/(inventory|vehicles|models|showcase|search|shop)\b/i },
   { type: "collection", pattern: /\/collection[s]?\/|\/categor(y|ies)\/|\/shop\/|\/browse\/|\/department[s]?\/|\/brand[s]?\/|\/make[s]?\/|\/model[s]?\/|\/lineup[s]?\/|\/showcase\//i },
   { type: "service", pattern: /service|repair|maintenance|tune-up|oil-change|service-dept/i },
   { type: "parts", pattern: /parts|accessories|gear|apparel|parts-dept|order-parts/i },
@@ -56,7 +59,61 @@ const SOCIAL_DOMAINS = {
   linkedin: "linkedin.com",
 };
 
-export function classifyUrl(urlStr) {
+function normalizeText(input) {
+  return String(input || "").replace(/\s+/g, " ").trim().toLowerCase();
+}
+
+function hasProductSignals(helper) {
+  const title = normalizeText(helper.text("title"));
+  const h1 = normalizeText(helper.text("h1"));
+  const body = normalizeText(helper.text("body"));
+  const price = helper.attr("[itemprop='price']", "content") || helper.attr("[itemprop='price']", "value");
+  const sku = helper.attr("[itemprop='sku']", "content") || helper.attr("[itemprop='sku']", "value");
+  const addToCart = /add to cart|buy now|request a quote|check availability|schedule test ride|reserve now|get price|price/i;
+  const productSchema = helper.jsonLd().some((item) => {
+    if (!item) return false;
+    const schemaType = item["@type"];
+    const typeCandidates = Array.isArray(schemaType) ? schemaType : [schemaType];
+    return typeCandidates.some((type) => /Product|Vehicle|Offer|ProductModel|ProductGroup/i.test(type));
+  });
+
+  if (productSchema || price || sku) return true;
+  if (addToCart.test(title) || addToCart.test(h1) || addToCart.test(body)) return true;
+  if (/\b(price|msrp|sku|model|trim|horsepower|torque|cc|miles per hour)\b/i.test(body) && /\b(add to cart|buy now|order|reserve)\b/i.test(body)) return true;
+  return false;
+}
+
+function hasCollectionSignals(helper) {
+  const title = normalizeText(helper.text("title"));
+  const h1 = normalizeText(helper.text("h1"));
+  const body = normalizeText(helper.text("body"));
+  const collectionSchema = helper.jsonLd().some((item) => {
+    if (!item) return false;
+    const schemaType = item["@type"];
+    const typeCandidates = Array.isArray(schemaType) ? schemaType : [schemaType];
+    return typeCandidates.some((type) => /CollectionPage|ItemList|ProductCollection/i.test(type));
+  });
+  if (collectionSchema) return true;
+
+  const collectionWords = /\b(collection|category|categories|browse|shop|models|lineup|inventory|series|all vehicles|all models|our vehicles|view all)\b/i;
+  const cardCount = helper.doc.querySelectorAll("article, .product-card, .vehicle-card, .inventory-tile, .listing-card").length;
+  if (collectionWords.test(title) || collectionWords.test(h1) || collectionWords.test(body)) return true;
+  if (cardCount >= 3) return true;
+  return false;
+}
+
+function classifyPageHtml(pageHtml) {
+  try {
+    const helper = parseHtml(pageHtml);
+    if (hasProductSignals(helper)) return "product";
+    if (hasCollectionSignals(helper)) return "collection";
+  } catch {
+    // ignore parse errors
+  }
+  return null;
+}
+
+export function classifyUrl(urlStr, pageHtml = "") {
   try {
     const path = new URL(urlStr).pathname.toLowerCase();
     if (path === "/" || path === "") return "home";
@@ -65,6 +122,12 @@ export function classifyUrl(urlStr) {
       if (rule.type === "finance" && /app|apply/i.test(path)) continue;
       if (rule.pattern.test(path)) return rule.type;
     }
+
+    if (pageHtml) {
+      const htmlType = classifyPageHtml(pageHtml);
+      if (htmlType) return htmlType;
+    }
+
     return "other";
   } catch {
     return "other";
@@ -133,9 +196,9 @@ export function prioritizeUrls(urls, budget = 80) {
     home: 1,
     "inventory-new": 3,
     "inventory-used": 3,
-    "brand-inventory": 8,
-    collection: 8,
-    product: 15,
+    "brand-inventory": 12,
+    collection: 12,
+    product: 20,
     promotions: 3,
   };
 

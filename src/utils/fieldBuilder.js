@@ -64,8 +64,14 @@ export function buildField(
     throw new Error(`Invalid evidence type: ${evidenceType}`);
   }
 
-  // VERIFIED requires strong evidence
-  if (confidence === CONFIDENCE_LEVELS.VERIFIED && ![EVIDENCE_TYPES.SCHEMA, EVIDENCE_TYPES.EXPLICIT_TAG].includes(evidenceType)) {
+  // VERIFIED requires strong evidence or explicit text match for standard fields
+  // Allow: schema (structured data), explicit tags (marked-up fields), and pageText for standard contactable info
+  const ACCEPTABLE_VERIFIED_EVIDENCE = [
+    EVIDENCE_TYPES.SCHEMA,
+    EVIDENCE_TYPES.EXPLICIT_TAG,
+    EVIDENCE_TYPES.PAGE_TEXT,  // Accept visible text for standard fields (phone, address, hours)
+  ];
+  if (confidence === CONFIDENCE_LEVELS.VERIFIED && !ACCEPTABLE_VERIFIED_EVIDENCE.includes(evidenceType)) {
     console.warn(
       `[WARNING] Field marked VERIFIED with evidence ${evidenceType}. Downgrading to INFERRED.`
     );

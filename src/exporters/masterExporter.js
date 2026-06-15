@@ -198,9 +198,46 @@ export default function generateMasterSheet(masterJson) {
     const t14 = [["Execution Timestamp", "Processed URL Target", "HTTP Response Status", "Duration (ms)", "Crawler Telemetry Notes"].map(h => buildCell(h, HEADER_FILL, HEADER_FONT, true))];
     getLogger().getLogs().forEach(l => t14.push([buildCell(l.timestamp), buildCell(l.url), buildCell(l.status), buildCell(l.durationMs), buildCell(l.notes)]));
 
+    // --- TAB X: All Discovered URLs (flat registry) ---
+    const tAll = [["URL", "Type", "Category", "Deployment Key", "HTTP Status", "Confidence", "Source"].map(h => buildCell(h, HEADER_FILL, HEADER_FONT, true))];
+    (masterJson.linkRegistry || []).forEach((r) => {
+      tAll.push([
+        buildCell(r.url),
+        buildCell(r.pageType || "other"),
+        buildCell(r.category),
+        buildCell(r.deploymentKey),
+        buildCell(r.status || ""),
+        buildCell(r.confidence || "INFERRED"),
+        buildCell(r.source || "")
+      ]);
+    });
+
     // Compile into workbook sheets
+    const productRows = [["URL", "Name", "Brand", "Price", "Source", "Confidence"].map(h => buildCell(h, HEADER_FILL, HEADER_FONT, true))];
+    const collectionRows = [["URL", "Name", "Item Count", "Source", "Confidence"].map(h => buildCell(h, HEADER_FILL, HEADER_FONT, true))];
+    const catalog = masterJson.sections.s5b_catalog || {};
+    (catalog.products?.value || []).forEach((p) => {
+      productRows.push([
+        buildCell(p.url),
+        buildCell(p.name),
+        buildCell(p.brand),
+        buildCell(p.price),
+        buildCell(p.source),
+        buildCell(p.confidence),
+      ]);
+    });
+    (catalog.collections?.value || []).forEach((c) => {
+      collectionRows.push([
+        buildCell(c.url),
+        buildCell(c.name),
+        buildCell(c.itemCount),
+        buildCell(c.source),
+        buildCell(c.confidence),
+      ]);
+    });
+
     const sheetsMap = {
-      "Summary": t1, "NAP & Identity": t2, "Pages & URLs": t3, "Social Media": t4,
+      "Summary": t1, "NAP & Identity": t2, "Pages & URLs": t3, "All Discovered URLs": tAll, "Collections": collectionRows, "Products": productRows, "Social Media": t4,
       "Brands": t5, "Departments": t6, "Finance": t7, "Service & Parts": t8,
       "Geo & Market": t9, "Buyer Psychology": t10, "Claims & Compliance": t11,
       "Business History": t12, "Crawl Audit Gaps": t13, "Crawl Log": t14

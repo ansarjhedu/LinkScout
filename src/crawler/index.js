@@ -3,6 +3,7 @@ import harvestLinks, { harvestLinksFromHtml, mergeDiscoveredLinks } from "./link
 import fetchPool, { clearFetchCache } from "./fetchPool.js";
 import parseRobotsTxt, { isPathAllowed } from "./robotsParser.js";
 import fetchProxy from "../utils/fetchProxy.js";
+import { fetchUrl } from "./fetchPool.js";
 import crawlConfig from "../config/crawlConfig.js";
 import { classifyUrl, prioritizeUrls, normalizeUrl } from "./urlClassifier.js";
 
@@ -54,16 +55,14 @@ export default async function orchestrateCrawl(targetUrl, onProgress) {
   const robots = await parseRobotsTxt(normalizedTarget);
 
   onProgress(5, "Fetching homepage and harvesting navigation links...", 0, 0, 0);
-  const homeRes = await fetchProxy(normalizedTarget, { retries: 2, timeout: crawlConfig.fetchTimeout });
+  // Use fetchPool.fetchUrl so homepage is included in unified telemetry and cache
+  const homeEntry = await fetchUrl(normalizedTarget, { retries: 2, timeout: crawlConfig.fetchTimeout });
 
-  if (!homeRes.ok || !homeRes.html) {
-    throw new Error(
-      homeRes.error ||
-      "Unable to read homepage. All CORS proxies failed — the site may be blocking automated access."
-    );
+  if (!homeEntry.ok || !homeEntry.html) {
+    throw new Error(homeEntry.error || "Unable to read homepage. All CORS proxies failed — the site may be blocking automated access.");
   }
 
-  const homeHarvest = harvestLinks(normalizedTarget, homeRes.html);
+  const homeHarvest = harvestLinks(normalizedTarget, homeEntry.html);
   let allDiscovered = [...(homeHarvest.internal || [])];
 
   onProgress(12, "Parsing sitemaps for site structure...", 0, 0, allDiscovered.length);
@@ -78,83 +77,79 @@ export default async function orchestrateCrawl(targetUrl, onProgress) {
     }
   });
 
-  let crawlTargets = prioritizeUrls(allDiscovered, crawlConfig.maxCrawlPages);
-  const targetsToCrawl = crawlTargets.filter((u) => normalizeUrl(u) !== normalizedTarget);
-
+  const crawlBudget = crawlConfig.maxCrawlPages;
+  const normalizedDiscovered = allDiscovered.map(normalizeUrl).filter((u) => u !== normalizedTarget);
+  const seedQueue = prioritizeUrls(normalizedDiscovered, crawlBudget);
   const crawledPages = [{
     url: normalizedTarget,
-    html: homeRes.html,
-    status: 200,
+    html: homeEntry.html,
+    status: homeEntry.status || 200,
     type: "home",
     ok: true,
+    duration: homeEntry.duration || null,
   }];
-
-  onProgress(18, `Fetching ${targetsToCrawl.length} priority pages...`, 0, 1, allDiscovered.length);
-
-  const fetched = await fetchPool(targetsToCrawl, {
-    concurrency: crawlConfig.concurrency,
-    skipUrls: new Set([normalizedTarget]),
-    onProgress: (done, total, url) => {
-      const pct = 18 + Math.floor((done / Math.max(total, 1)) * 50);
-      let pathname = "/";
-      try { pathname = new URL(url).pathname; } catch { /* skip */ }
-      onProgress(pct, `Fetching ${done}/${total}: ${pathname}`, 0, done + 1, allDiscovered.length);
-    },
-  });
-
   const pageHarvests = [homeHarvest];
+  const seenLinks = new Set([normalizedTarget, ...normalizedDiscovered]);
+  const pendingQueue = [...seedQueue];
 
-  for (const entry of fetched) {
-    crawledPages.push({
-      url: entry.url,
-      html: entry.html || "",
-      status: entry.status,
-      type: classifyUrl(entry.url),
-      ok: entry.ok,
-      error: entry.error || null,
+  while (pendingQueue.length > 0 && crawledPages.length - 1 < crawlBudget) {
+    const batchSize = Math.min(
+      Math.max(crawlConfig.concurrency, 6),
+      pendingQueue.length,
+      crawlBudget - (crawledPages.length - 1)
+    );
+    const batch = pendingQueue.splice(0, batchSize);
+
+    onProgress(18 + Math.floor(((crawledPages.length - 1) / Math.max(crawlBudget, 1)) * 50), `Fetching batch ${crawledPages.length}/${crawlBudget}...`, 0, crawledPages.length, seenLinks.size);
+
+    const fetched = await fetchPool(batch, {
+      concurrency: crawlConfig.concurrency,
+      skipUrls: new Set([normalizedTarget]),
+      onProgress: (done, total, url) => {
+        const pct = 18 + Math.floor(((crawledPages.length - 1 + done) / Math.max(crawlBudget, 1)) * 50);
+        let pathname = "/";
+        try { pathname = new URL(url).pathname; } catch { /* skip */ }
+        onProgress(pct, `Fetching ${done}/${total}: ${pathname}`, 0, crawledPages.length + done, seenLinks.size);
+      },
     });
 
-    if (entry.ok && entry.html) {
-      const pageHarvest = harvestLinksFromHtml(entry.url, entry.html, homeHarvest.registry || []);
-      pageHarvests.push(pageHarvest);
-    }
-  }
-
-  // Second-pass link discovery from all fetched page HTML
-  onProgress(72, "Discovering product/collection pages from crawled content...", 0, crawledPages.length, allDiscovered.length);
-  const mergedHarvest = mergeDiscoveredLinks(normalizedTarget, pageHarvests);
-  const newLinks = mergedHarvest.internal.filter((u) => !allDiscovered.includes(u));
-  allDiscovered = [...new Set([...allDiscovered, ...mergedHarvest.internal])];
-
-  if (newLinks.length > 0) {
-    // Expand second-pass discovery budget to match overall crawl budget
-    const extraTargets = prioritizeUrls(newLinks, crawlConfig.maxCrawlPages).filter(
-      (u) => !crawledPages.some((p) => p.url === u)
-    );
-
-    if (extraTargets.length > 0) {
-      onProgress(74, `Fetching ${extraTargets.length} newly discovered pages...`, 0, crawledPages.length, allDiscovered.length);
-      const extraFetched = await fetchPool(extraTargets, {
-        concurrency: crawlConfig.concurrency,
-        skipUrls: new Set(crawledPages.map((p) => p.url)),
+    const newlyDiscovered = new Set();
+    for (const entry of fetched) {
+      crawledPages.push({
+        url: entry.url,
+        html: entry.html || "",
+        status: entry.status,
+        type: classifyUrl(entry.url, entry.html || ""),
+        ok: entry.ok,
+        error: entry.error || null,
       });
 
-      for (const entry of extraFetched) {
-        crawledPages.push({
-          url: entry.url,
-          html: entry.html || "",
-          status: entry.status,
-          type: classifyUrl(entry.url),
-          ok: entry.ok,
-          error: entry.error || null,
-        });
-        if (entry.ok && entry.html) {
-          harvestLinksFromHtml(entry.url, entry.html, mergedHarvest.registry || []);
+      if (entry.ok && entry.html) {
+        const pageHarvest = harvestLinksFromHtml(entry.url, entry.html, homeHarvest.registry || []);
+        pageHarvests.push(pageHarvest);
+
+        for (const discovery of pageHarvest.internal || []) {
+          const normalizedDiscovery = normalizeUrl(discovery);
+          if (!seenLinks.has(normalizedDiscovery) && normalizeUrl(discovery) !== normalizedTarget) {
+            newlyDiscovered.add(normalizedDiscovery);
+            seenLinks.add(normalizedDiscovery);
+          }
+        }
+      }
+    }
+
+    if (newlyDiscovered.size > 0) {
+      const extraTargets = prioritizeUrls(Array.from(newlyDiscovered), crawlBudget);
+      for (const extra of extraTargets) {
+        if (!pendingQueue.includes(extra) && crawledPages.every((p) => p.url !== extra)) {
+          pendingQueue.push(extra);
         }
       }
     }
   }
 
+  allDiscovered = [...seenLinks];
+  const mergedHarvest = mergeDiscoveredLinks(normalizedTarget, pageHarvests);
   const harvest = mergedHarvest;
   const okPages = crawledPages.filter((p) => p.ok && p.html);
 
@@ -223,6 +218,18 @@ export default async function orchestrateCrawl(targetUrl, onProgress) {
   const finalJson = safeExtract("confidence", () => tagConfidence(validatedMaster), validatedMaster);
 
   const fieldCount = finalJson.meta.confidenceSummary?.totalFields || 0;
+  // Attach raw crawled page summary (url, status, type, duration) for performance analysis
+  try {
+    finalJson.meta.crawledPages = (crawledPages || []).map((p) => ({
+      url: p.url,
+      status: p.status,
+      type: p.type,
+      ok: !!p.ok,
+      duration: p.duration || null,
+    }));
+  } catch {
+    // ignore
+  }
   onProgress(100, "Crawl complete", fieldCount, crawledPages.length, allDiscovered.length);
   return finalJson;
 }

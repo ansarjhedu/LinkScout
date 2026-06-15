@@ -18,7 +18,7 @@ export default function ResultsDashboard({ masterJson }) {
   const summary = masterJson.meta.confidenceSummary || {};
   const sections = masterJson.sections;
 
-  const TABS = ["Overview", "Pages & URLs", "Catalog", "Link Registry", "Brands", "Finance", "Claims", "Crawl Audit"];
+  const TABS = ["Overview", "Pages & URLs", "Catalog", "Products", "Collections", "Link Registry", "Brands", "Finance", "Claims", "Crawl Audit"];
 
   return (
     <div className="w-full max-w-4xl mx-auto mt-8 space-y-6">
@@ -168,10 +168,59 @@ export default function ResultsDashboard({ masterJson }) {
           </div>
         )}
 
+        {activeTab === "Products" && (() => {
+          const productLinks = (sections.s19_linkRegistry || []).filter((link) => link.pageType === "product" || link.category === "product");
+          return (
+            <div className="space-y-4 text-sm">
+              <h4 className="text-zinc-300 font-bold mb-3">Product Pages Discovered ({productLinks.length})</h4>
+              <div className="grid gap-3">
+                {productLinks.slice(0, 50).map((link, idx) => (
+                  <div key={idx} className="p-3 rounded-xl bg-zinc-950/80 border border-zinc-800 text-zinc-300">
+                    <div className="font-semibold text-zinc-200 truncate">{link.url}</div>
+                    <div className="mt-1 text-[11px] text-zinc-500 flex flex-wrap gap-2">
+                      <span>Source: {link.source}</span>
+                      <span>Type: {link.pageType || link.category}</span>
+                      <span>Status: {link.status || "—"}</span>
+                    </div>
+                  </div>
+                ))}
+                {!productLinks.length && (
+                  <p className="text-zinc-500">No product pages were inferred from the crawl.</p>
+                )}
+              </div>
+            </div>
+          );
+        })()}
+
+        {activeTab === "Collections" && (() => {
+          const collectionLinks = (sections.s19_linkRegistry || []).filter((link) => link.pageType === "collection" || link.category === "collection");
+          return (
+            <div className="space-y-4 text-sm">
+              <h4 className="text-zinc-300 font-bold mb-3">Collection Pages Discovered ({collectionLinks.length})</h4>
+              <div className="grid gap-3">
+                {collectionLinks.slice(0, 50).map((link, idx) => (
+                  <div key={idx} className="p-3 rounded-xl bg-zinc-950/80 border border-zinc-800 text-zinc-300">
+                    <div className="font-semibold text-zinc-200 truncate">{link.url}</div>
+                    <div className="mt-1 text-[11px] text-zinc-500 flex flex-wrap gap-2">
+                      <span>Source: {link.source}</span>
+                      <span>Type: {link.pageType || link.category}</span>
+                      <span>Status: {link.status || "—"}</span>
+                    </div>
+                  </div>
+                ))}
+                {!collectionLinks.length && (
+                  <p className="text-zinc-500">No collection pages were inferred from the crawl.</p>
+                )}
+              </div>
+            </div>
+          );
+        })()}
+
         {activeTab === "Link Registry" && (
           <table className="w-full text-left border-collapse text-xs sm:text-sm">
             <thead>
               <tr className="border-b border-zinc-800 text-zinc-400 uppercase tracking-wider text-[11px] font-bold">
+                <th className="pb-3 pr-4">Type</th>
                 <th className="pb-3 pr-4">Category</th>
                 <th className="pb-3 pr-4">URL</th>
                 <th className="pb-3 pr-4">Source</th>
@@ -181,7 +230,8 @@ export default function ResultsDashboard({ masterJson }) {
             <tbody className="divide-y divide-zinc-850 text-zinc-300">
               {(sections.s19_linkRegistry || []).slice(0, 50).map((link, idx) => (
                 <tr key={idx} className="hover:bg-zinc-850/20">
-                  <td className="py-3 pr-4 font-bold text-zinc-400">{link.category}</td>
+                  <td className="py-3 pr-4 font-bold text-zinc-400">{link.pageType || link.category || "other"}</td>
+                  <td className="py-3 pr-4 text-zinc-400">{link.category}</td>
                   <td className="py-3 pr-4 font-mono truncate max-w-[200px]">{link.url}</td>
                   <td className="py-3 pr-4 text-zinc-500">{link.source}</td>
                   <td className="py-3">{link.status || "—"}</td>

@@ -124,12 +124,13 @@ function buildLinkRegistry(allLinks, crawledPages, homeHtml) {
     seen.add(url);
 
     const social = classifySocialUrl(url);
-    const pageType = social ? "social" : classifyUrl(url);
     const crawled = crawledPages.find((p) => p.url === url);
+    const pageType = social ? "social" : (crawled?.type || classifyUrl(url));
 
     registry.push({
       url,
       category: social ? `social-${social}` : pageType,
+      pageType,
       deploymentKey: deploymentKeyForType(pageType),
       source: identifyLinkContext(url, homeHtml),
       status: crawled?.status ?? null,
@@ -205,7 +206,13 @@ export default function extractUrls(crawledPages, discoveredUrls, targetUrl, har
   const registry = buildLinkRegistry(allLinks, safePages, homePage.html);
   for (const entry of safeRegistry) {
     if (!registry.some((r) => r.url === entry.url)) {
-      registry.push({ ...entry, deploymentKey: deploymentKeyForType(entry.pageType), status: null });
+      registry.push({
+        ...entry,
+        pageType: entry.pageType || classifyUrl(entry.url),
+        category: entry.category || classifyUrl(entry.url),
+        deploymentKey: deploymentKeyForType(entry.pageType || classifyUrl(entry.url)),
+        status: entry.status ?? null,
+      });
     }
   }
 

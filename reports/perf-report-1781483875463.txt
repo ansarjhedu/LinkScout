@@ -1,0 +1,58 @@
+Performance Crawl Report
+Target: https://www.columbiatnpowersports.com/
+Timestamp: 2026-06-15T00:37:55.463Z
+Crawl duration: 465631ms
+Pages visited: 400 (ok: 399, failed: 1)
+Fetch requests: 399 (success: 398, failures: 1)
+Avg fetch: 1927ms, p50: 901ms, p90: 3893ms, p95: 4525ms
+Slow URLs:
+ - https://www.columbiatnpowersports.com/Locations [status=200] 4709ms 
+ - https://www.columbiatnpowersports.com/Service/Service-Department [status=200] 5176ms 
+ - https://www.columbiatnpowersports.com/Dealer-Info/About-Us [status=200] 5434ms 
+ - https://www.columbiatnpowersports.com/Contact [status=200] 5666ms 
+ - https://www.columbiatnpowersports.com/New-Inventory/Polaris [status=200] 4525ms 
+ - https://www.columbiatnpowersports.com/Search-Inventory/New-Inventory-In-Stock [status=200] 4919ms 
+ - https://www.columbiatnpowersports.com/Current-Incentives/OEM-Promotions [status=200] 3782ms 
+ - https://www.columbiatnpowersports.com/Search-Inventory/KTM [status=200] 6966ms 
+ - https://www.columbiatnpowersports.com/Search-Inventory/Honda [status=200] 6492ms 
+ - https://www.columbiatnpowersports.com/Search-Inventory/Suzuki [status=200] 6772ms 
+ - https://www.columbiatnpowersports.com/Search-Inventory/Polaris [status=200] 7258ms 
+ - https://www.columbiatnpowersports.com/Directions [status=200] 3784ms 
+ - https://www.columbiatnpowersports.com/Search-Inventory/Search-All-Inventory-In-Stock/Kawasaki [status=200] 3720ms 
+ - https://www.columbiatnpowersports.com/Search-Inventory/Search-All-Inventory-In-Stock/Polaris [status=200] 4079ms 
+ - https://www.columbiatnpowersports.com/Search-Inventory/Search-All-Inventory-In-Stock/Honda [status=200] 4122ms 
+ - https://www.columbiatnpowersports.com/Search-Inventory/Search-All-Inventory-In-Stock/Suzuki [status=200] 3798ms 
+ - https://www.columbiatnpowersports.com/Search-Inventory/Search-All-Inventory-In-Stock/Atlas [status=200] 3560ms 
+ - https://www.columbiatnpowersports.com/Search-Inventory/Search-All-Inventory-In-Stock/KTM [status=200] 4999ms 
+ - https://www.columbiatnpowersports.com/Search-Inventory/SeaDoo [status=200] 4452ms 
+ - https://www.columbiatnpowersports.com/Search-Inventory/CanAm [status=200] 4971ms 
+ - https://www.columbiatnpowersports.com/Search-Inventory/Kawasaki [status=200] 6960ms 
+ - https://www.columbiatnpowersports.com/Search-Inventory/Atlas-Golf [status=200] 6810ms 
+ - https://www.columbiatnpowersports.com/Search-Inventory/SxS [status=200] 3751ms 
+ - https://www.columbiatnpowersports.com/Search-Inventory/ATV [status=200] 4048ms 
+ - https://www.columbiatnpowersports.com/Search-Inventory/PWC [status=200] 3578ms 
+ - https://www.columbiatnpowersports.com/Search-Inventory/Motorcycle [status=200] 4131ms 
+ - https://www.columbiatnpowersports.com/Current-Incentives [status=200] 3522ms 
+ - https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List [status=200] 4310ms 
+ - https://www.columbiatnpowersports.com/Service [status=200] 3271ms 
+ - https://www.columbiatnpowersports.com/Parts [status=200] 3334ms 
+ - https://www.columbiatnpowersports.com/Contact-Us [status=200] 3652ms 
+ - https://www.columbiatnpowersports.com/Inventory/New-Inventory-In-Stock [status=200] 3983ms 
+ - https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Kawasaki/ATVs/Youth/2027 [status=200] 4312ms 
+ - https://www.columbiatnpowersports.com/Inventory/All-Inventory-In-Stock [status=200] 4095ms 
+ - https://www.columbiatnpowersports.com/Inventory/Request-a-Model [status=200] 3893ms 
+ - https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Atlas?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098 [status=200] 4243ms 
+ - https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Atlas/Power-Boats-Inboard?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098 [status=200] 3697ms 
+ - https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Atlas/Power-Boats-Outboard?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098 [status=200] 3331ms 
+ - https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Can-Am?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098 [status=200] 3692ms 
+ - https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Can-Am/ATVs?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098 [status=200] 3852ms 
+ - https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Can-Am/Motorcycles?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098 [status=200] 3684ms 
+ - https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Can-Am/Utility-Vehicles?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098 [status=200] 4286ms 
+ - https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Honda?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098 [status=200] 3921ms 
+ - https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Honda/ATVs?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098 [status=200] 3594ms 
+ - https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Honda/Motorcycles?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098 [status=200] 3405ms 
+ - https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Honda?Category=Scooters&ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098 [status=200] 3478ms 
+ - https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Kawasaki?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098 [status=200] 3454ms 
+ - https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Honda/Utility-Vehicles?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098 [status=200] 4936ms 
+ - https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Kawasaki/ATVs?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098 [status=200] 4072ms 
+ - https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Kawasaki/Electric-Bicycles?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098 [status=200] 4155ms 

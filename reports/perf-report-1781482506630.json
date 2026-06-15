@@ -1,0 +1,25 @@
+{
+  "target": "https://example.com/",
+  "timestamp": "2026-06-15T00:15:06.630Z",
+  "crawlDurationMs": 14726,
+  "pagesVisited": 1,
+  "pagesFetchedOk": 1,
+  "pagesFetchFailed": 0,
+  "fetchTelemetry": {
+    "totalRequests": 0,
+    "successes": 0,
+    "failures": 0,
+    "durations": [],
+    "slowUrls": []
+  },
+  "fetchStats": {
+    "totalRequests": 0,
+    "successes": 0,
+    "failures": 0,
+    "avgMs": 0,
+    "p50": 0,
+    "p90": 0,
+    "p95": 0,
+    "slowUrls": []
+  }
+}

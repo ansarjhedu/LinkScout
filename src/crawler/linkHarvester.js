@@ -59,13 +59,14 @@ export function harvestLinksFromHtml(pageUrl, pageHtml, existingRegistry = []) {
   }
 
   const helper = parseHtml(pageHtml);
-  const hrefs = [
-    ...helper.attrAll("a[href]", "href"),
-    ...helper.attrAll("link[rel='canonical']", "href"),
-    ...helper.attrAll("link[rel='alternate']", "href"),
-  ];
+  const anchors = Array.from(helper.doc.querySelectorAll("a[href]"));
+  const hrefs = anchors.map((anchor) => ({ href: anchor.getAttribute("href"), text: anchor.textContent || "" }));
+  const canonicalLinks = helper.attrAll("link[rel='canonical']", "href");
+  const alternateLinks = helper.attrAll("link[rel='alternate']", "href");
 
-  for (const href of hrefs) {
+  for (const item of [...hrefs, ...canonicalLinks.map((href) => ({ href, text: "" })), ...alternateLinks.map((href) => ({ href, text: "" }))]) {
+    const href = item.href;
+    const anchorText = item.text;
     try {
       const absolute = new URL(href, pageUrl).href;
       const socialType = classifySocialUrl(absolute);
@@ -89,11 +90,12 @@ export function harvestLinksFromHtml(pageUrl, pageHtml, existingRegistry = []) {
         internal.add(clean);
         if (!seenUrls.has(clean)) {
           seenUrls.add(clean);
+          const inferredType = classifyUrl(clean);
           linkRegistry.push({
             url: clean,
-            category: classifyUrl(clean),
+            category: inferredType,
             source: detectLinkSource(href, pageHtml),
-            pageType: classifyUrl(clean),
+            pageType: inferredType,
           });
         }
       }
@@ -116,19 +118,29 @@ export default function harvestLinks(homepageUrl, homepageHtml) {
  */
 export function mergeDiscoveredLinks(baseUrl, pageHarvests) {
   const allInternal = new Set([normalizeUrl(baseUrl)]);
-  let registry = [];
-  let social = [];
+  const registryMap = new Map();
+  const socialMap = new Map();
 
   for (const harvest of pageHarvests) {
     if (!harvest) continue;
-    for (const url of harvest.internal || []) allInternal.add(url);
-    registry = harvest.registry || registry;
-    social = harvest.social?.length ? harvest.social : social;
+    for (const url of harvest.internal || []) {
+      allInternal.add(url);
+    }
+
+    for (const item of harvest.registry || []) {
+      if (!item || !item.url) continue;
+      if (!registryMap.has(item.url)) registryMap.set(item.url, item);
+    }
+
+    for (const item of harvest.social || []) {
+      if (!item || !item.url) continue;
+      if (!socialMap.has(item.url)) socialMap.set(item.url, item);
+    }
   }
 
   return {
     internal: [...allInternal],
-    social,
-    registry,
+    social: [...socialMap.values()],
+    registry: [...registryMap.values()],
   };
 }

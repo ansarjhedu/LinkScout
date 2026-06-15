@@ -4,6 +4,9 @@ import { PROXY_PROVIDERS } from "./proxyProviders.js";
 
 const isNode = typeof process !== "undefined" && process?.versions?.node;
 
+let _globalHttpAgent;
+let _globalHttpsAgent;
+
 function getProxyEnvironmentUrl() {
   if (!isNode) return null;
   return (
@@ -26,7 +29,11 @@ function defaultFetchHeaders() {
 async function createProxyAgent(proxyUrl) {
   if (!proxyUrl) return undefined;
   const { HttpsProxyAgent } = await import("https-proxy-agent");
-  return new HttpsProxyAgent(proxyUrl);
+  return new HttpsProxyAgent({
+    protocol: proxyUrl.startsWith("https") ? "https:" : "http:",
+    host: proxyUrl,
+    keepAlive: true,
+  });
 }
 
 async function directNodeFetchUrl(url, method, signal, proxyUrl) {
@@ -37,8 +44,21 @@ async function directNodeFetchUrl(url, method, signal, proxyUrl) {
     headers: defaultFetchHeaders(),
   };
 
+  // prefer proxy agent when explicitly provided, otherwise reuse a keep-alive agent
   if (proxyUrl) {
     requestOptions.agent = await createProxyAgent(proxyUrl);
+  } else {
+    try {
+      if (!_globalHttpAgent || !_globalHttpsAgent) {
+        const http = await import("http");
+        const https = await import("https");
+        _globalHttpAgent = new http.Agent({ keepAlive: true });
+        _globalHttpsAgent = new https.Agent({ keepAlive: true });
+      }
+      requestOptions.agent = (parsedUrl) => (parsedUrl.protocol === "https:" ? _globalHttpsAgent : _globalHttpAgent);
+    } catch {
+      // fallback: no agent
+    }
   }
 
   return nodeFetch(url, requestOptions);

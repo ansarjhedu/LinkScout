@@ -1,0 +1,1319 @@
+{
+  "target": "https://www.columbiatnpowersports.com/",
+  "timestamp": "2026-06-15T00:37:45.480Z",
+  "crawlDurationMs": 355899,
+  "pagesVisited": 400,
+  "pagesFetchedOk": 399,
+  "pagesFetchFailed": 1,
+  "fetchTelemetry": {
+    "totalRequests": 399,
+    "successes": 398,
+    "failures": 1,
+    "durations": [
+      2655,
+      3023,
+      3141,
+      3589,
+      1040,
+      783,
+      770,
+      1187,
+      1043,
+      997,
+      996,
+      1950,
+      998,
+      928,
+      3410,
+      950,
+      3751,
+      817,
+      835,
+      1061,
+      713,
+      3982,
+      925,
+      827,
+      823,
+      4643,
+      938,
+      6429,
+      7087,
+      1333,
+      3566,
+      9388,
+      1175,
+      1214,
+      969,
+      4423,
+      3977,
+      5484,
+      1257,
+      948,
+      3460,
+      975,
+      1060,
+      988,
+      3840,
+      962,
+      3742,
+      1029,
+      978,
+      1307,
+      1712,
+      1403,
+      1807,
+      1196,
+      816,
+      969,
+      1083,
+      1043,
+      1115,
+      1054,
+      1111,
+      785,
+      1026,
+      836,
+      828,
+      797,
+      884,
+      943,
+      795,
+      717,
+      879,
+      841,
+      748,
+      865,
+      768,
+      724,
+      869,
+      698,
+      992,
+      880,
+      944,
+      783,
+      1235,
+      1790,
+      1176,
+      971,
+      731,
+      658,
+      719,
+      905,
+      770,
+      746,
+      816,
+      888,
+      986,
+      831,
+      962,
+      904,
+      850,
+      678,
+      739,
+      819,
+      660,
+      666,
+      736,
+      662,
+      819,
+      3441,
+      3830,
+      5681,
+      6573,
+      3931,
+      3762,
+      791,
+      765,
+      4362,
+      713,
+      3852,
+      861,
+      1091,
+      3979,
+      793,
+      902,
+      837,
+      870,
+      965,
+      862,
+      1122,
+      1060,
+      795,
+      833,
+      826,
+      804,
+      1070,
+      802,
+      669,
+      1067,
+      1280,
+      889,
+      747,
+      703,
+      698,
+      771,
+      755,
+      727,
+      880,
+      781,
+      768,
+      713,
+      708,
+      788,
+      3155,
+      772,
+      825,
+      768,
+      1045,
+      1057,
+      866,
+      742,
+      725,
+      822,
+      1122,
+      1167,
+      873,
+      869,
+      749,
+      830,
+      941,
+      1603,
+      940,
+      970,
+      746,
+      1314,
+      853,
+      803,
+      709,
+      811,
+      888,
+      768,
+      841,
+      839,
+      806,
+      785,
+      772,
+      819,
+      805,
+      771,
+      780,
+      822,
+      765,
+      764,
+      751,
+      683,
+      762,
+      833,
+      740,
+      711,
+      1569,
+      1145,
+      977,
+      659,
+      3465,
+      3996,
+      4382,
+      3637,
+      956,
+      882,
+      939,
+      763,
+      725,
+      742,
+      3983,
+      945,
+      1523,
+      1010,
+      831,
+      710,
+      672,
+      4245,
+      724,
+      1075,
+      835,
+      746,
+      703,
+      803,
+      788,
+      768,
+      693,
+      682,
+      1133,
+      916,
+      681,
+      723,
+      713,
+      701,
+      742,
+      803,
+      778,
+      763,
+      693,
+      3759,
+      4051,
+      4266,
+      3639,
+      3564,
+      3801,
+      3963,
+      4805,
+      3738,
+      4196,
+      4464,
+      3735,
+      4310,
+      4511,
+      49233,
+      3529,
+      3755,
+      3585,
+      5306,
+      3472,
+      3678,
+      3377,
+      3230,
+      4541,
+      4499,
+      4618,
+      3660,
+      3302,
+      3610,
+      69414,
+      3287,
+      3106,
+      3833,
+      785,
+      3230,
+      3448,
+      3326,
+      5571,
+      1460,
+      1314,
+      758,
+      984,
+      799,
+      934,
+      860,
+      708,
+      731,
+      753,
+      730,
+      912,
+      717,
+      732,
+      765,
+      671,
+      711,
+      706,
+      1050,
+      4161,
+      786,
+      1037,
+      1046,
+      1036,
+      1427,
+      1373,
+      1349,
+      4597,
+      1693,
+      2205,
+      827,
+      921,
+      2467,
+      754,
+      697,
+      723,
+      762,
+      729,
+      713,
+      5034,
+      850,
+      986,
+      3758,
+      1145,
+      830,
+      712,
+      729,
+      3557,
+      709,
+      740,
+      972,
+      703,
+      716,
+      768,
+      751,
+      3097,
+      665,
+      691,
+      737,
+      774,
+      699,
+      742,
+      685,
+      663,
+      661,
+      2690,
+      676,
+      704,
+      1179,
+      646,
+      829,
+      666,
+      718,
+      757,
+      567,
+      2209,
+      677,
+      705,
+      540,
+      602,
+      667,
+      526,
+      749,
+      574,
+      602,
+      581,
+      731,
+      488,
+      652,
+      914,
+      2884,
+      839,
+      795,
+      493,
+      736,
+      2557,
+      930,
+      776,
+      709,
+      905,
+      548,
+      823,
+      930,
+      672,
+      955,
+      1045,
+      1499,
+      1723,
+      598,
+      2706,
+      3135,
+      512,
+      547,
+      546,
+      2360,
+      2385,
+      2218,
+      843,
+      556,
+      1189,
+      2579
+    ],
+    "slowUrls": [
+      {
+        "url": "https://www.columbiatnpowersports.com/Locations",
+        "status": 200,
+        "duration": 2655
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Dealer-Info/About-Us",
+        "status": 200,
+        "duration": 3023
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Service/Service-Department",
+        "status": 200,
+        "duration": 3141
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Contact",
+        "status": 200,
+        "duration": 3589
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Search-Inventory/Pre-Owned-Inventory",
+        "status": 200,
+        "duration": 3410
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Search-Inventory/New-Inventory-In-Stock",
+        "status": 200,
+        "duration": 3751
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/OEM-Promotions",
+        "status": 200,
+        "duration": 3982
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Search-Inventory/KTM",
+        "status": 200,
+        "duration": 4643
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Search-Inventory/Suzuki",
+        "status": 200,
+        "duration": 6429
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Search-Inventory/Polaris",
+        "status": 200,
+        "duration": 7087
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Directions",
+        "status": 200,
+        "duration": 3566
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Search-Inventory/Honda",
+        "status": 200,
+        "duration": 9388
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Search-Inventory/Search-All-Inventory-In-Stock/Polaris",
+        "status": 200,
+        "duration": 4423
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Search-Inventory/Search-All-Inventory-In-Stock/Kawasaki",
+        "status": 200,
+        "duration": 3977
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Search-Inventory/Search-All-Inventory-In-Stock/Honda",
+        "status": 200,
+        "duration": 5484
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Search-Inventory/Search-All-Inventory-In-Stock/Suzuki",
+        "status": 200,
+        "duration": 3460
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Search-Inventory/Search-All-Inventory-In-Stock/KTM",
+        "status": 200,
+        "duration": 3840
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Search-Inventory/Search-All-Inventory-In-Stock/Atlas",
+        "status": 200,
+        "duration": 3742
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Search-Inventory/CanAm",
+        "status": 200,
+        "duration": 3441
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Search-Inventory/SeaDoo",
+        "status": 200,
+        "duration": 3830
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Search-Inventory/Kawasaki",
+        "status": 200,
+        "duration": 5681
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Search-Inventory/Atlas-Golf",
+        "status": 200,
+        "duration": 6573
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Search-Inventory/SxS",
+        "status": 200,
+        "duration": 3931
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Search-Inventory/ATV",
+        "status": 200,
+        "duration": 3762
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Search-Inventory/Motorcycle",
+        "status": 200,
+        "duration": 4362
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Search-Inventory/PWC",
+        "status": 200,
+        "duration": 3852
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives",
+        "status": 200,
+        "duration": 3979
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List",
+        "status": 200,
+        "duration": 3155
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Contact-Us",
+        "status": 200,
+        "duration": 3465
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Parts",
+        "status": 200,
+        "duration": 3996
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Service",
+        "status": 200,
+        "duration": 4382
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Inventory/New-Inventory-In-Stock",
+        "status": 200,
+        "duration": 3637
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Kawasaki/ATVs/Youth/2027",
+        "status": 200,
+        "duration": 3983
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Inventory/All-Inventory-In-Stock",
+        "status": 200,
+        "duration": 4245
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Inventory/Request-a-Model",
+        "status": 200,
+        "duration": 3759
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Atlas?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 4051
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Atlas/Power-Boats-Inboard?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 4266
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Atlas/Power-Boats-Outboard?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 3639
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Can-Am?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 3564
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Can-Am/ATVs?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 3801
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Can-Am/Utility-Vehicles?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 3963
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Can-Am/Motorcycles?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 4805
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Honda?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 3738
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Honda/ATVs?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 4196
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Honda/Motorcycles?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 4464
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Honda?Category=Scooters&ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 3735
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Honda/Utility-Vehicles?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 4310
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Kawasaki?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 4511
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Brands/OEM-Promotions",
+        "status": 200,
+        "duration": 49233
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Kawasaki/ATVs?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 3529
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Kawasaki/Electric-Bicycles?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 3755
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Kawasaki/Watercraft?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 3585
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Kawasaki/Motorcycles?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 5306
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Kawasaki/Utility-Vehicles?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 3472
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/KTM?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 3678
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/KTM/Motorcycles?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 3377
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Polaris?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 3230
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Polaris/ATVs?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 4541
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Polaris/Utility-Vehicles?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 4499
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Polaris/Snowmobiles?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 4618
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Sea-Doo?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 3660
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Sea-Doo/Watercraft?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 3302
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Sea-Doo/Power-Boats-Inboard?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 3610
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Inventory/Used-Inventory",
+        "status": "ERR",
+        "duration": 69414,
+        "error": "codetabs: proxy HTTP 400"
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Suzuki?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 3287
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Suzuki/Motorcycles?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 3106
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Suzuki/ATVs?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 3833
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Yamaha/Watercraft?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 3230
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Yamaha?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 3448
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Honda/ATVs/FourTrax-Foreman-4x4/2027",
+        "status": 200,
+        "duration": 3326
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Suzuki?Category=Scooters&ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 5571
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Honda/ATVs/FourTrax-Foreman-Rubicon-4x4/2027",
+        "status": 200,
+        "duration": 4161
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Honda/ATVs/FourTrax-Rancher/2027",
+        "status": 200,
+        "duration": 4597
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/ATVs-Honda-FourTrax-Rancher-4x4-Automatic-DCT-IRS-EPS-2026-Columbia-TN-26efab7d-cb8b-4c29-8a07-b2ec0069b6b1",
+        "status": 200,
+        "duration": 2205
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/ATVs-Honda-FourTrax-Recon-2026-Columbia-TN-ecbdcbfd-3a54-4483-a3c5-b33f004fc120",
+        "status": 200,
+        "duration": 2467
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Honda/ATVs/FourTrax-Recon/2027",
+        "status": 200,
+        "duration": 5034
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Honda/ATVs/FourTrax-Rubicon-4x4/2027",
+        "status": 200,
+        "duration": 3758
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Honda/Motorcycles/Dual-Sport/2027",
+        "status": 200,
+        "duration": 3557
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Honda/Motorcycles/Motocross/2027",
+        "status": 200,
+        "duration": 3097
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Honda/Motorcycles/Supersport/2027",
+        "status": 200,
+        "duration": 2690
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Motorcycles-Honda-CRF300F-2026-Columbia-TN-02654b12-13d6-4f53-974a-b33e006e8da0",
+        "status": 200,
+        "duration": 2209
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Honda/2027?Category=Scooters&Type=Scooters",
+        "status": 200,
+        "duration": 2884
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Kawasaki/ATVs/Utility-Recreation/2027",
+        "status": 200,
+        "duration": 2557
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Motorcycles-Kawasaki-KLX-230-S-ABS-2026-Columbia-TN-a215034b-dca0-4456-9517-b371003c2d9d",
+        "status": 200,
+        "duration": 2706
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Kawasaki/Motorcycles/KLX-Dual-Sport/2027",
+        "status": 200,
+        "duration": 3135
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Motorcycles-Kawasaki-KLX-300-2026-Columbia-TN-6874b739-aeac-42b7-a84b-b2f900a8e031",
+        "status": 200,
+        "duration": 2360
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Motorcycles-Kawasaki-KLX-300-2026-Columbia-TN-80b9d2cf-d828-48c5-92fa-b2f900a8d809",
+        "status": 200,
+        "duration": 2385
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Motorcycles-Kawasaki-KLX-230-SHERPA-S-ABS-2026-Columbia-TN-d1369188-f4af-4a73-8a95-b2f9008b22c3",
+        "status": 200,
+        "duration": 2218
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Kawasaki/Motorcycles/KLX-Off-Road/2027",
+        "status": 200,
+        "duration": 2579
+      }
+    ]
+  },
+  "fetchStats": {
+    "totalRequests": 399,
+    "successes": 398,
+    "failures": 1,
+    "avgMs": 1819,
+    "p50": 873,
+    "p90": 3801,
+    "p95": 4423,
+    "slowUrls": [
+      {
+        "url": "https://www.columbiatnpowersports.com/Locations",
+        "status": 200,
+        "duration": 2655
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Dealer-Info/About-Us",
+        "status": 200,
+        "duration": 3023
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Service/Service-Department",
+        "status": 200,
+        "duration": 3141
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Contact",
+        "status": 200,
+        "duration": 3589
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Search-Inventory/Pre-Owned-Inventory",
+        "status": 200,
+        "duration": 3410
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Search-Inventory/New-Inventory-In-Stock",
+        "status": 200,
+        "duration": 3751
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/OEM-Promotions",
+        "status": 200,
+        "duration": 3982
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Search-Inventory/KTM",
+        "status": 200,
+        "duration": 4643
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Search-Inventory/Suzuki",
+        "status": 200,
+        "duration": 6429
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Search-Inventory/Polaris",
+        "status": 200,
+        "duration": 7087
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Directions",
+        "status": 200,
+        "duration": 3566
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Search-Inventory/Honda",
+        "status": 200,
+        "duration": 9388
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Search-Inventory/Search-All-Inventory-In-Stock/Polaris",
+        "status": 200,
+        "duration": 4423
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Search-Inventory/Search-All-Inventory-In-Stock/Kawasaki",
+        "status": 200,
+        "duration": 3977
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Search-Inventory/Search-All-Inventory-In-Stock/Honda",
+        "status": 200,
+        "duration": 5484
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Search-Inventory/Search-All-Inventory-In-Stock/Suzuki",
+        "status": 200,
+        "duration": 3460
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Search-Inventory/Search-All-Inventory-In-Stock/KTM",
+        "status": 200,
+        "duration": 3840
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Search-Inventory/Search-All-Inventory-In-Stock/Atlas",
+        "status": 200,
+        "duration": 3742
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Search-Inventory/CanAm",
+        "status": 200,
+        "duration": 3441
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Search-Inventory/SeaDoo",
+        "status": 200,
+        "duration": 3830
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Search-Inventory/Kawasaki",
+        "status": 200,
+        "duration": 5681
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Search-Inventory/Atlas-Golf",
+        "status": 200,
+        "duration": 6573
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Search-Inventory/SxS",
+        "status": 200,
+        "duration": 3931
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Search-Inventory/ATV",
+        "status": 200,
+        "duration": 3762
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Search-Inventory/Motorcycle",
+        "status": 200,
+        "duration": 4362
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Search-Inventory/PWC",
+        "status": 200,
+        "duration": 3852
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives",
+        "status": 200,
+        "duration": 3979
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List",
+        "status": 200,
+        "duration": 3155
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Contact-Us",
+        "status": 200,
+        "duration": 3465
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Parts",
+        "status": 200,
+        "duration": 3996
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Service",
+        "status": 200,
+        "duration": 4382
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Inventory/New-Inventory-In-Stock",
+        "status": 200,
+        "duration": 3637
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Kawasaki/ATVs/Youth/2027",
+        "status": 200,
+        "duration": 3983
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Inventory/All-Inventory-In-Stock",
+        "status": 200,
+        "duration": 4245
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Inventory/Request-a-Model",
+        "status": 200,
+        "duration": 3759
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Atlas?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 4051
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Atlas/Power-Boats-Inboard?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 4266
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Atlas/Power-Boats-Outboard?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 3639
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Can-Am?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 3564
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Can-Am/ATVs?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 3801
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Can-Am/Utility-Vehicles?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 3963
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Can-Am/Motorcycles?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 4805
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Honda?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 3738
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Honda/ATVs?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 4196
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Honda/Motorcycles?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 4464
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Honda?Category=Scooters&ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 3735
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Honda/Utility-Vehicles?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 4310
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Kawasaki?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 4511
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Brands/OEM-Promotions",
+        "status": 200,
+        "duration": 49233
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Kawasaki/ATVs?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 3529
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Kawasaki/Electric-Bicycles?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 3755
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Kawasaki/Watercraft?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 3585
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Kawasaki/Motorcycles?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 5306
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Kawasaki/Utility-Vehicles?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 3472
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/KTM?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 3678
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/KTM/Motorcycles?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 3377
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Polaris?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 3230
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Polaris/ATVs?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 4541
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Polaris/Utility-Vehicles?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 4499
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Polaris/Snowmobiles?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 4618
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Sea-Doo?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 3660
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Sea-Doo/Watercraft?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 3302
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Sea-Doo/Power-Boats-Inboard?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 3610
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Inventory/Used-Inventory",
+        "status": "ERR",
+        "duration": 69414,
+        "error": "codetabs: proxy HTTP 400"
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Suzuki?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 3287
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Suzuki/Motorcycles?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 3106
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Suzuki/ATVs?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 3833
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Yamaha/Watercraft?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 3230
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Yamaha?ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 3448
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Honda/ATVs/FourTrax-Foreman-4x4/2027",
+        "status": 200,
+        "duration": 3326
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Suzuki?Category=Scooters&ModuleGuid=ef5e21b2-c6c0-450d-9d10-5c419a586098",
+        "status": 200,
+        "duration": 5571
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Honda/ATVs/FourTrax-Foreman-Rubicon-4x4/2027",
+        "status": 200,
+        "duration": 4161
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Honda/ATVs/FourTrax-Rancher/2027",
+        "status": 200,
+        "duration": 4597
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/ATVs-Honda-FourTrax-Rancher-4x4-Automatic-DCT-IRS-EPS-2026-Columbia-TN-26efab7d-cb8b-4c29-8a07-b2ec0069b6b1",
+        "status": 200,
+        "duration": 2205
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/ATVs-Honda-FourTrax-Recon-2026-Columbia-TN-ecbdcbfd-3a54-4483-a3c5-b33f004fc120",
+        "status": 200,
+        "duration": 2467
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Honda/ATVs/FourTrax-Recon/2027",
+        "status": 200,
+        "duration": 5034
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Honda/ATVs/FourTrax-Rubicon-4x4/2027",
+        "status": 200,
+        "duration": 3758
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Honda/Motorcycles/Dual-Sport/2027",
+        "status": 200,
+        "duration": 3557
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Honda/Motorcycles/Motocross/2027",
+        "status": 200,
+        "duration": 3097
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Honda/Motorcycles/Supersport/2027",
+        "status": 200,
+        "duration": 2690
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Motorcycles-Honda-CRF300F-2026-Columbia-TN-02654b12-13d6-4f53-974a-b33e006e8da0",
+        "status": 200,
+        "duration": 2209
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Honda/2027?Category=Scooters&Type=Scooters",
+        "status": 200,
+        "duration": 2884
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Kawasaki/ATVs/Utility-Recreation/2027",
+        "status": 200,
+        "duration": 2557
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Motorcycles-Kawasaki-KLX-230-S-ABS-2026-Columbia-TN-a215034b-dca0-4456-9517-b371003c2d9d",
+        "status": 200,
+        "duration": 2706
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Kawasaki/Motorcycles/KLX-Dual-Sport/2027",
+        "status": 200,
+        "duration": 3135
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Motorcycles-Kawasaki-KLX-300-2026-Columbia-TN-6874b739-aeac-42b7-a84b-b2f900a8e031",
+        "status": 200,
+        "duration": 2360
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Motorcycles-Kawasaki-KLX-300-2026-Columbia-TN-80b9d2cf-d828-48c5-92fa-b2f900a8d809",
+        "status": 200,
+        "duration": 2385
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Motorcycles-Kawasaki-KLX-230-SHERPA-S-ABS-2026-Columbia-TN-d1369188-f4af-4a73-8a95-b2f9008b22c3",
+        "status": 200,
+        "duration": 2218
+      },
+      {
+        "url": "https://www.columbiatnpowersports.com/Current-Incentives/Manufacturer-Models/Model-List/Kawasaki/Motorcycles/KLX-Off-Road/2027",
+        "status": 200,
+        "duration": 2579
+      }
+    ]
+  }
+}

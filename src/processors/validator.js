@@ -1,4 +1,5 @@
 import { MISSING_REASONS } from "../utils/fieldBuilder.js";
+import { verifyGeoCoordinates, verifyServiceHours } from "../utils/verification.js";
 
 function isValidPhonePattern(phone) {
   if (!phone) return false;
@@ -137,6 +138,33 @@ export default function validateOutput(masterJson, crawledPages) {
     }
     claims.approvedClaims.value = vettedApproved;
   }
+
+  // Stronger verification for geo coordinates and service hours
+  try {
+    if (nap.lat && nap.lng) {
+      const combined = { value: { lat: nap.lat.value, lng: nap.lng.value } };
+      const verified = verifyGeoCoordinates(combined, crawledPages);
+      if (verified && verified.confidence) {
+        nap.lat.confidence = verified.confidence;
+        nap.lng.confidence = verified.confidence;
+        nap.lat.reason = verified.reason || null;
+        nap.lng.reason = verified.reason || null;
+      }
+    }
+  } catch (e) { /* don't let verification break the pipeline */ }
+
+  try {
+    if (nap.serviceHours) {
+      const sh = verifyServiceHours(nap.serviceHours, crawledPages);
+      nap.serviceHours.confidence = sh.confidence;
+      nap.serviceHours.reason = sh.reason || null;
+    }
+    if (nap.salesHours) {
+      const s2 = verifyServiceHours(nap.salesHours, crawledPages);
+      nap.salesHours.confidence = s2.confidence;
+      nap.salesHours.reason = s2.reason || null;
+    }
+  } catch (e) { /* ignore */ }
 
   return masterJson;
 }
