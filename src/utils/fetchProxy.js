@@ -6,6 +6,7 @@ const isNode = typeof process !== "undefined" && process?.versions?.node;
 
 let _globalHttpAgent;
 let _globalHttpsAgent;
+const dynamicImport = (specifier) => new Function("specifier", "return import(specifier)")(specifier);
 
 function getProxyEnvironmentUrl() {
   if (!isNode) return null;
@@ -27,8 +28,8 @@ function defaultFetchHeaders() {
 }
 
 async function createProxyAgent(proxyUrl) {
-  if (!proxyUrl) return undefined;
-  const { HttpsProxyAgent } = await import("https-proxy-agent");
+  if (!proxyUrl || !isNode) return undefined;
+  const { HttpsProxyAgent } = await dynamicImport("https-proxy-agent");
   return new HttpsProxyAgent({
     protocol: proxyUrl.startsWith("https") ? "https:" : "http:",
     host: proxyUrl,
@@ -37,7 +38,11 @@ async function createProxyAgent(proxyUrl) {
 }
 
 async function directNodeFetchUrl(url, method, signal, proxyUrl) {
-  const { default: nodeFetch } = await import("node-fetch");
+  if (!isNode) {
+    throw new Error("directNodeFetchUrl is only available in Node environments");
+  }
+
+  const { default: nodeFetch } = await dynamicImport("node-fetch");
   const requestOptions = {
     method,
     signal,
@@ -50,8 +55,8 @@ async function directNodeFetchUrl(url, method, signal, proxyUrl) {
   } else {
     try {
       if (!_globalHttpAgent || !_globalHttpsAgent) {
-        const http = await import("http");
-        const https = await import("https");
+        const http = await dynamicImport("http");
+        const https = await dynamicImport("https");
         _globalHttpAgent = new http.Agent({ keepAlive: true });
         _globalHttpsAgent = new https.Agent({ keepAlive: true });
       }

@@ -13,6 +13,9 @@ export default defineConfig({
     tailwindcss()
   ],
   base: '/',
+  build: {
+    target: 'esnext'
+  },
   server: {
     port: 3000,
     open: true
