@@ -17,6 +17,15 @@ const crawlConfig = {
   concurrency: Number(_env.VITE_CRAWL_CONCURRENCY) || 10,
   appTitle: _env.VITE_APP_TITLE || "MaxOpp Intelligence Crawler",
   fetchTimeout: Number(_env.VITE_FETCH_TIMEOUT_MS) || 18000,
+  // Sitemap discovery tuning for faster click-to-discover behavior
+  sitemapFetchTimeoutMs: Number(_env.VITE_SITEMAP_FETCH_TIMEOUT_MS) || 6000,
+  sitemapMaxCandidates: Number(_env.VITE_SITEMAP_MAX_CANDIDATES) || 10,
+  sitemapMaxNested: Number(_env.VITE_SITEMAP_MAX_NESTED) || 6,
+  sitemapMaxLinks: Number(_env.VITE_SITEMAP_MAX_LINKS) || 250,
+  // Threshold (ms) above which pages are considered "slow" and surfaced for retry
+  slowThresholdMs: Number(_env.VITE_SLOW_THRESHOLD_MS) || 2000,
+  // Retry timeout to use when user elects to re-crawl slow pages
+  slowRetryTimeoutMs: Number(_env.VITE_SLOW_RETRY_TIMEOUT_MS) || 60000,
   // Longer timeout for collection/inventory pages (often heavy with filters + dynamic content)
   collectionTimeoutMs: Number(_env.VITE_COLLECTION_TIMEOUT_MS) || 30000,
   fetchRetries: Number(_env.VITE_FETCH_RETRIES) || 1,

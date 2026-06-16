@@ -66,8 +66,12 @@ export default async function orchestrateCrawl(targetUrl, onProgress) {
   let allDiscovered = [...(homeHarvest.internal || [])];
 
   onProgress(12, "Parsing sitemaps for site structure...", 0, 0, allDiscovered.length);
-  const sitemapLinks = await parseSitemaps(normalizedTarget, robots.sitemaps || []);
-  allDiscovered = [...new Set([...allDiscovered, ...sitemapLinks])];
+  const sitemapResult = await parseSitemaps(normalizedTarget, robots.sitemaps || []);
+  allDiscovered = [...new Set([...allDiscovered, ...sitemapResult.urls])];
+
+  if (sitemapResult.metrics?.durationMs > crawlConfig.sitemapFetchTimeoutMs * 2) {
+    console.warn(`Sitemap discovery took too long (${sitemapResult.metrics.durationMs}ms). Falling back to homepage link discovery.`);
+  }
 
   allDiscovered = allDiscovered.filter((url) => {
     try {
@@ -115,6 +119,10 @@ export default async function orchestrateCrawl(targetUrl, onProgress) {
 
     const newlyDiscovered = new Set();
     for (const entry of fetched) {
+      const duration = entry.duration || null;
+      const isSlow = duration !== null && duration > crawlConfig.slowThresholdMs;
+      const crawlStatus = entry.ok ? (isSlow ? "slow" : "crawled") : "failed";
+
       crawledPages.push({
         url: entry.url,
         html: entry.html || "",
@@ -122,6 +130,9 @@ export default async function orchestrateCrawl(targetUrl, onProgress) {
         type: classifyUrl(entry.url, entry.html || ""),
         ok: entry.ok,
         error: entry.error || null,
+        duration,
+        isSlow,
+        crawlStatus,
       });
 
       if (entry.ok && entry.html) {
@@ -226,7 +237,19 @@ export default async function orchestrateCrawl(targetUrl, onProgress) {
       type: p.type,
       ok: !!p.ok,
       duration: p.duration || null,
+      isSlow: !!p.isSlow,
+      crawlStatus: p.crawlStatus || (p.ok ? "crawled" : "failed"),
     }));
+    finalJson.meta.slowPages = finalJson.meta.crawledPages.filter((p) => p.isSlow);
+    finalJson.meta.pageTiming = finalJson.meta.crawledPages.map((p) => ({
+      url: p.url,
+      durationMs: p.duration || null,
+      ok: p.ok,
+      isSlow: p.isSlow,
+      crawlStatus: p.crawlStatus,
+    }));
+    finalJson.meta.sitemapMetrics = sitemapResult.metrics || {};
+    finalJson.linkRegistry = urlResult.linkRegistry || [];
   } catch {
     // ignore
   }

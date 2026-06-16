@@ -135,6 +135,9 @@ function buildLinkRegistry(allLinks, crawledPages, homeHtml) {
       source: identifyLinkContext(url, homeHtml),
       status: crawled?.status ?? null,
       confidence: crawled?.status === 200 ? "VERIFIED" : crawled ? "INFERRED" : "INFERRED",
+      durationMs: crawled?.duration ?? null,
+      isSlow: !!crawled?.isSlow,
+      crawlStatus: crawled?.crawlStatus || (crawled ? (crawled.ok ? "crawled" : "failed") : "unfetched"),
     });
   }
 

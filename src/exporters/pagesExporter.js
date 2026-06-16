@@ -94,6 +94,44 @@ export default function generatePagesSheet(masterJson) {
     applyAutoWidths(ws1, tab1Matrix);
     XLSX.utils.book_append_sheet(wb, ws1, "Pages & URLs");
 
+    const slowRows = [["URL", "HTTP Status", "Duration (ms)", "Slow Page", "Crawl Status", "Error"].map((h) => buildCell(h, HEADER_FILL, HEADER_FONT, true))];
+    const slowPages = masterJson.meta?.slowPages || [];
+    slowPages.forEach((page) => {
+      slowRows.push([
+        buildCell(page.url),
+        buildCell(page.status || ""),
+        buildCell(page.duration ?? ""),
+        buildCell(page.isSlow ? "Yes" : "No"),
+        buildCell(page.crawlStatus || ""),
+        buildCell(page.error || "")
+      ]);
+    });
+
+    const wsSlow = XLSX.utils.aoa_to_sheet(slowRows);
+    wsSlow["!views"] = [{ state: "frozen", ySplit: 1 }];
+    applyAutoWidths(wsSlow, slowRows);
+    XLSX.utils.book_append_sheet(wb, wsSlow, "Slow Pages");
+
+    const registryRows = [["URL", "Type", "Category", "Status", "Confidence", "Duration (ms)", "Slow Page", "Crawl Status", "Source"].map((h) => buildCell(h, HEADER_FILL, HEADER_FONT, true))];
+    const registry = masterJson.linkRegistry || [];
+    registry.forEach((entry) => {
+      registryRows.push([
+        buildCell(entry.url),
+        buildCell(entry.pageType || "other"),
+        buildCell(entry.category || ""),
+        buildCell(entry.status || ""),
+        buildCell(entry.confidence || ""),
+        buildCell(entry.durationMs ?? ""),
+        buildCell(entry.isSlow ? "Yes" : "No"),
+        buildCell(entry.crawlStatus || ""),
+        buildCell(entry.source || "")
+      ]);
+    });
+    const wsRegistry = XLSX.utils.aoa_to_sheet(registryRows);
+    wsRegistry["!views"] = [{ state: "frozen", ySplit: 1 }];
+    applyAutoWidths(wsRegistry, registryRows);
+    XLSX.utils.book_append_sheet(wb, wsRegistry, "Discovered URLs");
+
     const tab2Matrix = [];
     const t2Headers = ["Platform", "URL", "Status", "Confidence", "Reason"];
     tab2Matrix.push(t2Headers.map((h) => buildCell(h, HEADER_FILL, HEADER_FONT, true)));

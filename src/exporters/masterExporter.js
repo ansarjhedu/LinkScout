@@ -199,7 +199,7 @@ export default function generateMasterSheet(masterJson) {
     getLogger().getLogs().forEach(l => t14.push([buildCell(l.timestamp), buildCell(l.url), buildCell(l.status), buildCell(l.durationMs), buildCell(l.notes)]));
 
     // --- TAB X: All Discovered URLs (flat registry) ---
-    const tAll = [["URL", "Type", "Category", "Deployment Key", "HTTP Status", "Confidence", "Source"].map(h => buildCell(h, HEADER_FILL, HEADER_FONT, true))];
+    const tAll = [["URL", "Type", "Category", "Deployment Key", "HTTP Status", "Confidence", "Duration (ms)", "Slow Page", "Crawl Status", "Source"].map(h => buildCell(h, HEADER_FILL, HEADER_FONT, true))];
     (masterJson.linkRegistry || []).forEach((r) => {
       tAll.push([
         buildCell(r.url),
@@ -208,6 +208,9 @@ export default function generateMasterSheet(masterJson) {
         buildCell(r.deploymentKey),
         buildCell(r.status || ""),
         buildCell(r.confidence || "INFERRED"),
+        buildCell(r.durationMs ?? ""),
+        buildCell(r.isSlow ? "Yes" : "No"),
+        buildCell(r.crawlStatus || "unfetched"),
         buildCell(r.source || "")
       ]);
     });
@@ -236,8 +239,19 @@ export default function generateMasterSheet(masterJson) {
       ]);
     });
 
+    const slowPagesRows = [["URL", "HTTP Status", "Duration (ms)", "Crawl Status", "Slow Reason"].map(h => buildCell(h, HEADER_FILL, HEADER_FONT, true))];
+    (masterJson.meta?.slowPages || []).forEach((p) => {
+      slowPagesRows.push([
+        buildCell(p.url),
+        buildCell(p.status || ""),
+        buildCell(p.duration ?? ""),
+        buildCell(p.crawlStatus || "slow"),
+        buildCell(p.error || "")
+      ]);
+    });
+
     const sheetsMap = {
-      "Summary": t1, "NAP & Identity": t2, "Pages & URLs": t3, "All Discovered URLs": tAll, "Collections": collectionRows, "Products": productRows, "Social Media": t4,
+      "Summary": t1, "NAP & Identity": t2, "Pages & URLs": t3, "All Discovered URLs": tAll, "Slow Pages": slowPagesRows, "Collections": collectionRows, "Products": productRows, "Social Media": t4,
       "Brands": t5, "Departments": t6, "Finance": t7, "Service & Parts": t8,
       "Geo & Market": t9, "Buyer Psychology": t10, "Claims & Compliance": t11,
       "Business History": t12, "Crawl Audit Gaps": t13, "Crawl Log": t14

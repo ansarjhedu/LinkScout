@@ -1,0 +1,745 @@
+MASTER INTELLIGENCE PACKET
+Columbia Powersports Supercenter DATA COVERAGE
+- Verified from website: 28 core fields (NAP, hours, brands, URLs, platform)
+- Live-confirmed URLs: 15
+- Dealer input needed: 12 grouped topics (see Section 20)
+- This packet contains everything findable on the public website. Remaining items require dealer confirmation and are listed in Section
+20.
+1. EXECUTIVE ENTITY SUMMARY
+Columbia Powersports Supercenter is positioned as "Tennessee's Largest Multi-Line Powersports &
+Marine Dealership" [VERIFIED], serving the Columbia, TN, and broader Middle Tennessee metro market [VERIFIED]. The dealership offers a
+comprehensive range of new powersports vehicles from major brands like Polaris, Honda, Kawasaki, Can-Am,
+Suzuki, KTM, Sea-Doo, and Atlas Golf [VERIFIED]. Its core market role is a
+high-volume, single-point destination for diverse powersports and marine enthusiasts, emphasizing a
+wide selection of new inventory, robust service capabilities, and accessible financing options. Key trust signals include its "Supercenter" designation, extensive brand partnerships, and explicit support for aftermarket warranties [VERIFIED]. AI SEO positioning should leverage its "largest inventory" and "multi-line" claims, focusing on its geographic dominance in Middle Tennessee and its comprehensive offering across ATVs, SxSs, Motorcycles, and PWCs.
+2. VERIFIED ENTITY /
+NAP ● Dealership Name: Columbia Powersports Supercenter [VERIFIED]
+● Legal Business Name: Missing
+-
+verify before build [MISSING]
+● DBA Name: Missing
+-
+verify before build [MISSING]
+● Primary Website URL: https://www.columbiatnpowersports.com/ [CONFIRMED]
+● Physical Address: 800 S
+James Campbell Blvd, Columbia, TN 38401 [VERIFIED]
+● Main Phone: (931) 981-9301 [VERIFIED]
+● Sales Hours: Mon
+-
+Sat |
+9:00 AM
+-
+6:00 PM [VERIFIED]
+● Service Hours: Mon
+-
+Sat |
+8:00 AM
+-
+5:00 PM [VERIFIED]
+● Latitude: 35.600000 [INFERRED]
+● Longitude: -87.060000 [INFERRED]
+● Logo URL: Missing
+-
+verify before build [MISSING]
+● Google Business Profile URL: https://share.google/49bp9IRLWCv63yA4R
+[CONFIRMED]
+● Google Maps URL: Missing
+-
+verify before build [MISSING]
+● Google Review URL: Missing
+-
+verify before build [MISSING]
+● Social URLs: ● Facebook: Missing
+-
+verify before build [MISSING]
+● Instagram: Missing
+-
+verify before build [MISSING]
+● YouTube: Missing
+-
+verify before build [MISSING]
+● TikTok: Missing
+-
+verify before build [MISSING]
+● X
+(Twitter): Missing
+-
+verify before build [MISSING]
+● LinkedIn: Missing
+-
+verify before build [MISSING]
+● Other: Missing
+-
+verify before build [MISSING]
+3. BUSINESS HISTORY &
+LEGACY ● Founding Year: DEALER
+-
+needed
+● Prior Names: DEALER
+-
+needed
+● Ownership: DEALER
+-
+needed
+● Facility History: DEALER
+-
+needed
+● Family/Local Status: DEALER
+-
+needed
+● Community History: DEALER
+-
+needed
+● Approved Public Story: DEALER
+-
+needed
+4. CORE BUSINESS POSITIONING ● Primary Business Type: Multi-line Powersports &
+Marine Dealership [VERIFIED]
+● Franchise Structure: Authorized dealer for multiple major powersports and marine brands [VERIFIED]
+● Dealership Category: Supercenter, emphasizing large inventory and diverse product lines [INFERRED]
+● Departments: Sales (New &
+Used), Service, Parts, Finance [CONFIRMED]
+● Differentiators: "Tennessee's Largest Multi-Line Powersports" [VERIFIED], "LARGEST Inventory selection in Middle Tennessee" [VERIFIED], comprehensive brand offerings, dedicated service and parts departments, integrated financing solutions. ● Should NOT be reduced to: A
+single-line brand dealer, a
+small local shop, or solely a
+used vehicle outlet [INFERRED].
+5. BRAND &
+MANUFACTURER HIERARCHY ● Polaris: ● Parent Company: Polaris Inc. [CONFIRMED]
+● Product Line: ATV /
+SxS [VERIFIED]
+● Authority Role: Core powersports brand, significant inventory contributor.
+● Honda: ● Parent Company: Honda [CONFIRMED]
+● Product Line: Motorcycle /
+ATV /
+SxS [VERIFIED]
+● Authority Role: Major multi-category powersports brand.
+● Kawasaki: ● Parent Company: Kawasaki [CONFIRMED]
+● Product Line: Motorcycle /
+ATV /
+SxS [VERIFIED]
+● Authority Role: Key multi-category powersports brand.
+● Can-Am: ● Parent Company: BRP [CONFIRMED]
+● Product Line: ATV /
+SxS [VERIFIED]
+● Authority Role: Prominent off-road vehicle brand.
+● Spyder: ● Parent Company: BRP [DEALER
+-
+needed]
+● Product Line: 3-Wheel Motorcycle [VERIFIED]
+● Authority Role: Specialized 3-wheel vehicle offering.
+● Suzuki: ● Parent Company: Suzuki [CONFIRMED]
+● Product Line: Motorcycle /
+ATV [VERIFIED]
+● Authority Role: Established motorcycle and ATV brand.
+● Sea-Doo: ● Parent Company: BRP [CONFIRMED]
+● Product Line: PWC [VERIFIED]
+● Authority Role: Leading personal watercraft brand.
+● KTM: ● Parent Company: Pierer Mobility [CONFIRMED]
+● Product Line: Motorcycle [VERIFIED]
+● Authority Role: Performance-oriented motorcycle brand.
+● Atlas Golf: ● Parent Company: Atlas Golf Carts [DEALER
+-
+needed]
+● Product Line: Golf Cart [VERIFIED]
+● Authority Role: Niche offering in the golf cart segment.
+6. INVENTORY STRATEGY &
+SALES PRIORITIES ● New/Used Mix: DEALER
+-
+needed
+● Brand Priority (New): Polaris, Can-Am, Honda, Kawasaki, Sea-Doo, KTM [VERIFIED] (Populates active live showcase arrays throughout homepage links.) ● Category Priority (New): SxS, ATVs, Motorcycles [INFERRED] (Ranked according to homepage layout navigation tier layout and category grids.)
+● Opportunity Categories: Golf Carts (Atlas Golf) [VERIFIED], 3-Wheel Motorcycles (Spyder) [VERIFIED]
+● Used Stance: Actively seeks used inventory through trade-ins and outright purchases [VERIFIED]. ● Trade-in Policy: Accepts trade-ins as part of new purchases [VERIFIED]. ● Buy-Outright Policy: Offers to buy vehicles outright [VERIFIED]. ● Consignment Stance: DEALER
+-
+needed
+● Non-Brand Trade-ins: DEALER
+-
+needed
+7. DEPARTMENT INTELLIGENCE ● Sales Department: ● Role: Facilitates the sale of new and used powersports and marine vehicles. ● Revenue Importance: Primary revenue driver. ● Authority Theme: "Multi-line sales specialists" [INFERRED] with product knowledge from personal riding experience.
+● Customer Need: Access to a
+wide selection, expert guidance, competitive pricing, and financing solutions. ● Internal-Link Relationships: Links to New/Used Inventory, Finance, Promotions, Trade-in.
+● Service Department: ● Role: Provides maintenance, repairs, and warranty services for powersports and marine vehicles. ● Revenue Importance: Significant ongoing revenue and customer retention.
+● Authority Theme: Authorized service for major franchised lines, warranty &
+recall lookup specialists [VERIFIED]. ● Customer Need: Reliable repairs, routine maintenance, warranty support, accessory installation.
+● Internal-Link Relationships: Links to Parts, Service Scheduler (if available), Service Specials.
+● Parts/Accessories/Apparel Department: ● Role: Supplies OEM and aftermarket parts, accessories, and potentially apparel. ● Revenue Importance: Supports service, enhances sales, and provides direct retail. ● Authority Theme: OEM parts specialists [VERIFIED], supports aftermarket warranties [VERIFIED]. ● Customer Need: Genuine parts, performance upgrades, customization, riding gear. ● Internal-Link Relationships: Links to Service, specific brand pages, online parts catalog (if available).
+● Finance Department: ● Role: Assists customers with securing financing for vehicle purchases.
+● Revenue Importance: Critical enabler for sales, potential for additional product sales. ● Authority Theme: Offers "Instant financing for more people than ever through our prime, credit builder, and first-time buyer programs" [VERIFIED]. ● Customer Need: Flexible payment options, competitive rates, protection products. ● Internal-Link Relationships: Links to Sales, New/Used Inventory, Finance Application.
+● Incentives/Promotions: ● Role: Highlights current deals and manufacturer incentives. ● Revenue Importance: Drives immediate sales and attracts price-sensitive buyers. ● Authority Theme: Showcases "In-Stock Deals" [CONFIRMED]. ● Customer Need: Value, savings, special offers. ● Internal-Link Relationships: Links to New Inventory, specific brand pages.
+8. FINANCE INTELLIGENCE ● Financing Offered: Yes [VERIFIED]
+● In-House Financing: DEALER
+-
+needed
+● Lenders (if verified): Synchrony Bank, Roadrunner Financial (Octane) [VERIFIED]
+● Credit-Challenged Policy: "Instant financing for more people than ever through our prime, credit builder, and first-time buyer programs." [VERIFIED]
+● Trade Equity Notes: Trade-in value can be applied towards a
+new purchase [VERIFIED]. ● Protection Products: DEALER
+-
+needed
+● Compliance-Safe Public Language: "Financing options designed to support a
+range of qualified buyers, including prime, credit builder, and first-time buyer programs." ● Internal-Only Intel: DEALER
+-
+needed
+9. SERVICE INTELLIGENCE ● Brands Serviced: "Servicing all major franchised lines" [INFERRED] (Supported by official brand warranty lookup mechanisms). ● Non-Franchise Policy: DEALER
+-
+needed
+● Unit Age Limits: DEALER
+-
+needed
+● Specialties: Warranty &
+Recall Lookup [VERIFIED], general maintenance and repair for powersports and marine vehicles. ● Diagnostics: DEALER
+-
+needed
+● Seasonal Prep: DEALER
+-
+needed
+● Accessory Install: INFERRED (Common for powersports dealers, but not explicitly stated)
+● Communication Strengths: DEALER
+-
+needed
+● Risk Notes: DEALER
+-
+needed
+10. PARTS /
+ACCESSORIES /
+APPAREL INTELLIGENCE ● OEM Support: "Search OEM Incentives /
+Parts Specialists" [VERIFIED]
+● Aftermarket: "Yes
+-
+we can work with any aftermarket warranty company" [VERIFIED]
+● Apparel, Gear, Accessories: DEALER
+-
+needed
+● Special Orders: DEALER
+-
+needed
+● Fitment Guidance: INFERRED (Implied by "Parts Specialists" [VERIFIED]) ● Service Integration: Parts department supports the service department's repair and maintenance activities. ● Ownership-Lifecycle Support: Provides parts for ongoing maintenance and customization.
+11. GEO MARKET STRUCTURE ● Primary Local Market: Columbia, TN [VERIFIED]
+● Primary County: Maury County [INFERRED]
+● Metro Market: South of Nashville /
+Middle Tennessee [VERIFIED]
+● Extended Market: INFERRED (Implied by "Tennessee's Largest" claim, but no specific cities beyond nearby Nashville/Lebanon are mentioned as direct service areas). ● Nearby Cities: Nashville, Lebanon [INFERRED] (Extracted from cross-location information referencing sibling facilities.) ● Lifestyle/Use-Case Markets: "Where to Ride /
+Learn to Ride" [VERIFIED] (Suggests targeting recreational riders, outdoor enthusiasts, and new riders.)
+12. BUYER PSYCHOLOGY &
+DECISION TRIGGER MAP ● General Powersports Buyer: ● Motivation: Recreation, adventure, utility, sport, freedom, community. ● Decision Trigger: New model releases, seasonal riding opportunities, desire for upgrade, need for specific utility. ● Objection: Price, financing terms, maintenance costs, storage.
+● Trust Trigger: Large inventory, knowledgeable staff, authorized service, positive reviews. ● Emotional Driver: Excitement, thrill, escape, practicality, belonging.
+● Lifestyle/Geo Relevance: Middle Tennessee's outdoor recreation, rural utility needs.
+● ATV/SxS Buyer: ● Motivation: Off-road adventure, hunting/fishing, property maintenance, utility work. ● Decision Trigger: Need for rugged transport, desire for family outdoor activity, specific job requirements. ● Objection: Safety concerns, trail access, storage.
+● Trust Trigger: Brand reputation (Polaris, Can-Am, Honda, Kawasaki), service support. ● Emotional Driver: Adventure, capability, utility, family fun.
+● Motorcycle Buyer: ● Motivation: Freedom,
+sport, commuting, touring, community. ● Decision Trigger: Desire for open-road experience, performance upgrade, entry into riding.
+● Objection: Safety, licensing, weather dependency. ● Trust Trigger: Brand reputation (Honda, Kawasaki, Suzuki, KTM, Spyder), service expertise.
+● Emotional Driver: Thrill, independence, style, community.
+● PWC Buyer (Sea-Doo): ● Motivation: Water recreation, speed, family fun on lakes/rivers. ● Decision Trigger: Summer season, access to waterways, desire for water sports. ● Objection: Storage, trailering, maintenance, fuel costs. ● Trust Trigger: Brand reputation (Sea-Doo), service support. ● Emotional Driver: Fun, excitement, relaxation, family time.
+● Service Buyer: ● Motivation: Vehicle longevity, safety, performance, warranty compliance.
+● Decision Trigger: Scheduled maintenance, unexpected breakdown, recall notice, pre-season check. ● Objection: Cost, downtime, trust in technicians. ● Trust Trigger: Certified technicians, warranty support, transparent pricing, positive service reviews. ● Emotional Driver: Reliability, peace of mind, safety.
+● Finance Buyer: ● Motivation: Affordability, budget management, immediate purchase.
+● Decision Trigger: Finding the right vehicle, needing flexible payment options. ● Objection: High interest rates, credit history, complex process. ● Trust Trigger: Clear terms, multiple lender options, support for various credit profiles. ● Emotional Driver: Relief, accessibility, excitement of ownership.
+● Additional Buyer Groups: DEALER
+-
+needed (e.g., specific segments for Golf Carts, or more granular segments within motorcycles like dirt bike vs. cruiser).
+13. SEASONALITY &
+MONTHLY NURTURE LAYER ● Peak Seasons: INFERRED (Spring/Summer for PWC, Motorcycles; Spring/Fall for ATVs/SxS for hunting/trail riding; year-round for service/parts). ● Slow Seasons: INFERRED (Winter for outdoor recreational vehicles, though enclosed SxS and service may continue). ● Seasonal Pushes: DEALER
+-
+needed (e.g., Spring ride events, Fall hunting season promotions, Winter service specials).
+● Promo Timing: "In-Stock Deals" [CONFIRMED] suggest ongoing promotions. ● Aged Inventory: DEALER
+-
+needed
+● Supplemental Only: This layer should always supplement, not override, the dealership's evergreen identity as a
+year-round powersports supercenter.
+14. COMMUNITY, TRUST &
+LIFESTYLE POSITIONING ● Community Involvement: DEALER
+-
+needed
+● Local Identity: Positioned as a
+key business in Columbia, TN, serving the broader Middle Tennessee region [VERIFIED]. ● Family/Independent Trust: INFERRED (Common for local dealerships, but not explicitly stated). ● Regional Lifestyle Themes: Supports outdoor recreation, adventure, utility, and powersports enthusiasm prevalent in Middle Tennessee [VERIFIED]. ● Reputation Signals: "Tennessee's Largest Multi-Line Powersports" [VERIFIED], "LARGEST Inventory selection in Middle Tennessee" [VERIFIED]. ● Tone Guidance: Enthusiastic, knowledgeable, customer-focused, authoritative in product selection and service.
+15. COMPETITIVE LANDSCAPE ● Competitor Names: DEALER
+-
+needed
+● Competitor URLs: DEALER
+-
+needed
+● Competitor Cities: DEALER
+-
+needed
+● Why They Matter: DEALER
+-
+needed
+● Positioning Response: DEALER
+-
+needed (e.g., emphasize "largest inventory," "multi-line," comprehensive service, and financing options).
+16. APPROVED CLAIMS /
+RISK CONTROL ● Approved Safe Claims: ● "LARGEST Inventory selection in Middle Tennessee" [VERIFIED
+-
+Quoted from baseline About Us details blocks.] ● "Servicing all major franchised lines" [INFERRED
+-
+Supported by the inclusion of official brand warranty lookup mechanisms under service selections.] ● "Instant financing for more people than ever through our prime, credit builder, and first-time buyer programs." [VERIFIED
+-
+Quoted precisely from online lender promotion descriptions.] ● "We can work with any aftermarket warranty company." [VERIFIED
+-
+Stated plainly within dedicated service department Q&A arrays.]
+● Claims Requiring Proof: ● "Tennessee's Largest Multi-Line Powersports Dealer" [VERIFIED
+-
+Requires backing verification against competitor dealer networks.]
+● Internal-Only Intel: DEALER
+-
+needed
+● Forbidden-Unless-Verified: ● Specific numerical out-the-door guarantees [INFERRED
+-
+Individual vehicle listings redirect directly into custom request interfaces for quoting details.] ● Any claims of "guaranteed approval" or "everyone approved" for financing.
+● Specific pricing or warranty details without direct, verifiable on-page evidence.
+● Compliance-Sensitive Language: ● Finance: Use "Financing options designed to support a
+range of qualified buyers" instead of "guaranteed approval." ● Warranty: Clearly distinguish between manufacturer warranties, aftermarket warranties, and dealership-provided guarantees. ● Pricing: Avoid definitive "lowest price" claims unless explicitly verified and legally defensible.
+● Trade-in: State "Find out what your vehicle is worth" rather than "get top dollar" without qualification.
+● Ranking: For "Largest" claims, ensure they are tied to specific, verifiable metrics (e.g., inventory count, square footage) if possible, or present as a
+stated claim requiring proof.
+17. PRIORITY ENTITY THEMES ● Primary Themes: ● Middle Tennessee's Largest Multi-Line Powersports &
+Marine Supercenter [VERIFIED]
+● Comprehensive Inventory Destination (New &
+Used) [VERIFIED/INFERRED]
+● Full-Service Powersports Hub (Sales, Service, Parts, Finance) [CONFIRMED]
+● Secondary Themes: ● Expert Sales &
+Service Specialists [INFERRED]
+● Accessible Financing for Diverse Credit Profiles [VERIFIED]
+● Community for Riders &
+Outdoor Enthusiasts [VERIFIED]
+● Tertiary Themes: ● OEM &
+Aftermarket Parts Support [VERIFIED]
+● Trade-in &
+Buy-Outright Options [VERIFIED]
+● Avoid Reducing Identity To: ● Just a
+local single-line shop [INFERRED]
+● Solely a
+used vehicle dealer
+● Only a
+service center
+18. PROMPT OPERATIONAL RULES ● Evergreen over Seasonal: Prioritize the dealership's permanent identity and core offerings over temporary promotions or seasonal pushes. ● Deployment Sheet Controls URLs: All URLs for deployment must come from the verified "Deployment Inputs Sheet Summary" (Section 19) and not be invented.
+● No Invented Claims/URLs: Do not create any facts, claims, URLs, awards, rankings, or certifications not explicitly present and verified in the input data.
+● Safe Finance Language: Adhere strictly to compliance-safe finance language. Never use "guaranteed approval," "everyone approved," or "bad credit approved." Use approved phrasing like "Financing options designed to support a
+range of qualified buyers." ● Preserve Brand Hierarchy: Maintain the exact brand hierarchy as provided in the input (e.g., product line under parent company). Do not merge parent and product brands. ● Department Distinctions: Clearly differentiate between the roles and offerings of Sales, Service, Parts, and Finance departments. ● Risk Notes Control Public Claims: Any public-facing claims must align with the "Approved Safe Claims" and "Compliance-Sensitive Language" in Section
+16. Claims requiring proof must be flagged for human review.
+19. DEPLOYMENT INPUTS SHEET SUMMARY ● Home Page: https://www.columbiatnpowersports.com/ [CONFIRMED]
+● About Us Page: https://www.columbiatnpowersports.com/about-us [CONFIRMED]
+● Showroom /
+All Inventory Page: https://www.columbiatnpowersports.com/Search-Inventory/New-Inventory [CONFIRMED]
+● New Inventory Page: https://www.columbiatnpowersports.com/Search-Inventory/New-Inventory [CONFIRMED]
+● Used /
+Pre-Owned Inventory Page: https://www.columbiatnpowersports.com/Search-Inventory/Pre-Owned-Inventory [CONFIRMED]
+● Service Page: https://www.columbiatnpowersports.com/Service [CONFIRMED]
+● Parts Page: https://www.columbiatnpowersports.com/Parts [CONFIRMED]
+● Finance Page: https://www.columbiatnpowersports.com/Financing [CONFIRMED]
+● Promotions /
+Incentives Page: https://www.columbiatnpowersports.com/Search-Inventory/In-Stock-Deals [CONFIRMED]
+● Contact Page: https://www.columbiatnpowersports.com/Locations [CONFIRMED]
+● Trade-in /
+Sell Your Unit Page: https://www.columbiatnpowersports.com/value-your-trade [CONFIRMED]
+● Finance Application Page: https://www.columbiatnpowersports.com/Financing/Secure-Finance-Application [CONFIRMED]
+● Credit Application Page: https://www.columbiatnpowersports.com/Financing/Secure-Finance-Application [CONFIRMED]
+● Service Scheduler Page: Missing
+-
+verify before build [MISSING]
+● Parts Request Page: Missing
+-
+verify before build [MISSING]
+● Test Drive /
+Ride Page: Missing
+-
+verify before build [MISSING]
+● Staff Page: Missing
+-
+verify before build [MISSING]
+● Blog Page: Missing
+-
+verify before build [MISSING]
+● Events Page: Missing
+-
+verify before build [MISSING]
+● Testimonials /
+Reviews Page: Missing
+-
+verify before build [MISSING]
+● Logo URL: Missing
+-
+verify before build [MISSING]
+● Google Business Profile URL: https://share.google/49bp9IRLWCv63yA4R
+[CONFIRMED]
+● Google Maps URL: Missing
+-
+verify before build [MISSING]
+● Google Review URL: Missing
+-
+verify before build [MISSING]
+● Social URLs: See Section 2
+(all missing)
+● Latitude: 35.600000 [INFERRED]
+● Longitude: -87.060000 [INFERRED]
+● Website Platform: DX1 [VERIFIED]
+● Known Limitations: No direct brand-specific inventory URLs provided in input. Social media links are missing. Many optional forms (service scheduler, parts request, test drive) are missing.
+20. MISSING /
+QA ITEMS BEFORE FINAL BUILD This is a
+checklist of items requiring further action before final build. ● Legal &
+Business Identity: ● Legal Business Name [MISSING]
+● DBA Name [MISSING]
+● Business History &
+Ownership: ● Founding Year [DEALER]
+● Prior Names [DEALER]
+● Ownership details [DEALER]
+● Facility history [DEALER]
+● Family/Local status [DEALER]
+● Community history [DEALER]
+● Approved public story [DEALER]
+● Brand Hierarchy Confirmation: ● Parent company for Spyder [DEALER]
+● Parent company for Atlas Golf [DEALER]
+● Inventory Strategy: ● New/Used Inventory Mix [DEALER]
+● Primary Used Categories [MISSING]
+● Non-Brand Trade-ins policy [DEALER]
+● Consignment policy [DEALER]
+● Department Details:
+● Apparel &
+Gear inventory [DEALER]
+● Special Parts Orders policy [DEALER]
+● Non-Franchise Service policy [DEALER]
+● Unit Age Limits for service [DEALER]
+● In-House Financing availability [DEALER]
+● Service Specialties (beyond warranty/recall) [DEALER]
+● Service Diagnostics capabilities [DEALER]
+● Seasonal Service Prep offerings [DEALER]
+● Service Communication Strengths [DEALER]
+● Service Risk Notes [DEALER]
+● Geographic Market: ● Specific Buyer Radius [DEALER]
+● Buyer Psychology: ● Detailed motivations, triggers, objections, trust triggers, emotional drivers for specific buyer groups (e.g., Golf Cart buyers, specific motorcycle segments) [DEALER]
+● Seasonality &
+Nurture: ● Peak/Slow Seasons (explicitly defined) [DEALER]
+● Monthly Nurture strategies [DEALER]
+● Seasonal Pushes/Promotional Timing [DEALER]
+● Aged Inventory strategy [DEALER]
+● Community &
+Trust: ● Community Involvement details [DEALER]
+● Family/Independent Trust (explicit confirmation) [DEALER]
+● Competitive Landscape: ● Competitor Names, URLs, Cities, and strategic response [DEALER]
+● Risk Control: ● Internal-Only Intel [DEALER]
+● Missing URLs &
+Assets: ● Logo URL [MISSING]
+● Google Maps URL [MISSING]
+● Google Review URL [MISSING]
+● Facebook URL [MISSING]
+● Instagram URL [MISSING]
+● YouTube URL [MISSING]
+● TikTok URL [MISSING]
+● X
+(Twitter) URL [MISSING]
+● LinkedIn URL [MISSING]
+● Other Social URLs [MISSING]
+● Service Scheduler URL [MISSING]
+● Parts Request URL [MISSING]
+● Test Drive /
+Ride URL [MISSING]
+● Staff Page URL [MISSING]
+● Blog URL [MISSING]
+● Events URL [MISSING]
+● Testimonials /
+Reviews URL [MISSING]
+● Individual Brand Inventory URLs (e.g., /polaris-inventory) [MISSING]
+● Inferred Items for Spot-Check: ● Latitude/Longitude [INFERRED
+-
+spot-check] ● Primary Used Categories (if any exist) [MISSING
+-
+spot-check] ● Sales Role description [INFERRED
+-
+spot-check] ● Brands Serviced (non-franchise policy) [INFERRED
+-
+spot-check] ● Accessory Install in Service [INFERRED
+-
+spot-check] ● Fitment Guidance in Parts [INFERRED
+-
+spot-check] ● Extended Market beyond Middle Tennessee [INFERRED
+-
+spot-check] ● Family/Independent Trust [INFERRED
+-
+spot-check] ● Peak/Slow Seasons [INFERRED
+-
+spot-check] ● Forbidden-Unless-Verified (Specific numerical out-the-door guarantees) [INFERRED
+-
+spot-check]
+Instructions for data extraction: You are an expert in: •
+AI SEO •
+Entity SEO •
+AEO •
+Local SEO •
+Powersports and marine dealership marketing •
+Structured authority development •
+Prompt-ready intelligence normalization Your job is to convert messy client inputs into a
+clean, structured Master Intelligence Packet that can be used to build authority pages, schema, llms files, internal linking, and AI-readable dealership positioning. OBJECTIVE Create one complete Master Intelligence Packet from the supplied materials. The final document must organize raw intake data into a
+clean, accurate, prompt-ready structure. The output must help future prompts generate: •
+About page •
+Showroom /
+Inventory page •
+Service page •
+Parts /
+Accessories /
+Gear page •
+Finance page •
+Incentives /
+Promotions page •
+Global Entity Schema •
+llms.txt •
+llms-full.txt •
+QA validation REQUIRED INPUTS Use all provided materials, including: •
+Client intake forms •
+Business intelligence forms •
+Inventory /
+marketing priority forms •
+Client notes •
+Staff notes •
+Website URLs •
+Social URLs •
+Google Business Profile URLs •
+Screenshots •
+Existing website content •
+Brand /
+franchise information •
+Deployment Inputs Sheet, if provided GLOBAL RULES Do NOT invent facts. Do NOT guess missing URLs. Do NOT fabricate claims, rankings, awards, or certifications. Do NOT blend unrelated businesses or entities. Do NOT overuse temporary campaign priorities as permanent identity. Do NOT include unsafe finance claims. Do NOT
+include unsupported superlatives. Do NOT flatten a
+multi-line dealership into one brand unless verified. Do NOT confuse parent manufacturers with product lines. If information is missing, create a
+Missing /
+QA Items section. ENTITY NORMALIZATION RULES You must separate: Evergreen Identity Permanent business facts and positioning. Monthly /
+Quarterly Strategy Seasonal pushes, aged inventory, promotional direction, and temporary priorities. Deployment Inputs URLs, logo, social profiles, GBP, latitude/longitude, and schema inputs. Risk Controls Claims that are safe, cautionary, forbidden, or internal-only. OUTPUT STRUCTURE Provide the final Master Intelligence Packet in this exact order: Executive Entity Summary Verified Entity /
+NAP Business History &
+Legacy Core Business Positioning Brand &
+Manufacturer Hierarchy Inventory Strategy &
+Sales Priorities Department Intelligence Finance Intelligence Service Intelligence Parts /
+Accessories /
+Apparel Intelligence Geo Market Structure Buyer Psychology &
+Decision Trigger Map Seasonality &
+Monthly Nurture Layer Community, Trust &
+Lifestyle Positioning Competitive Landscape Approved Claims /
+Risk Control Priority Entity Themes Prompt Operational Rules Deployment Inputs Sheet Missing /
+QA Items Before Final Build SECTION REQUIREMENTS
+1. Executive Entity Summary Summarize what the dealership is at its core. Include: •
+Business identity •
+Market role •
+Primary geography •
+Brand mix •
+Category focus •
+Main trust signals •
+AI SEO positioning direction This section must be concise but strategically complete.
+2. Verified Entity /
+NAP Include: •
+Legal business name •
+Public DBA •
+Primary website •
+Current physical address •
+Main phone number •
+Department phone structure, if available •
+Latitude •
+Longitude •
+Logo URL •
+Google Business Profile URL •
+Google Maps URL •
+Review URL •
+Official social profile URLs If latitude, longitude, logo, GBP, or social URLs are missing, flag them.
+3. Business History &
+Legacy Normalize the dealership history. Include: •
+Founding year •
+Prior names •
+Ownership history •
+Facility history •
+Family-owned /
+locally owned status •
+Community history •
+Approved public story Separate verified history from uncertain claims.
+4. Core Business Positioning Define what the dealership should be understood as. Include: •
+Primary business type •
+Franchise structure •
+Dealership category •
+Department structure •
+Primary differentiators •
+What the dealership should NOT be reduced to
+5. Brand &
+Manufacturer Hierarchy Clarify all brand relationships. For each brand, include: •
+Parent company, if relevant •
+Product line •
+Vehicle categories •
+Authority role •
+Any restrictions or cautions Example logic: •
+BRP =
+parent manufacturer •
+Can-Am =
+off-road and on-road product line •
+Sea-Doo =
+PWC product line Do not confuse parent brands and product brands.
+6. Inventory Strategy &
+Sales Priorities Include: •
+New vs used mix •
+Brand priority order •
+Product category priority order •
+Current opportunity categories •
+Used inventory stance •
+Trade-in policy •
+Buy-outright policy •
+Consignment stance •
+Aged inventory strategy, if provided Separate permanent inventory identity from temporary inventory pushes.
+7. Department Intelligence Summarize all major departments: •
+Sales •
+Service •
+Parts /
+Accessories /
+Apparel
+• Finance •
+Incentives /
+Promotions •
+Special departments, if any For each, include: •
+Department role •
+Revenue importance •
+Authority theme •
+Customer need served •
+Internal link relationships
+8. Finance Intelligence Include: •
+Whether financing is offered •
+In-house financing, if verified •
+Lender strategy, if verified •
+Named lenders, if verified •
+Credit-challenged buyer policy •
+Trade equity /
+down payment notes •
+Protection products, if verified •
+Compliance-safe public language Flag any finance detail that should remain internal only. Use safe language such as: “Financing options designed to support a
+range of qualified buyers.” Avoid: •
+guaranteed approval •
+everyone approved •
+bad credit approved •
+no credit approved •
+aggressive finance companies •
+unsupported lender claims
+9. Service Intelligence Include: •
+Brands serviced •
+Non-franchise service policy •
+Age limitations •
+Service specialties •
+Diagnostic capabilities •
+Seasonal prep •
+Accessory installation •
+Service communication strengths •
+Service risk notes
+10. Parts /
+Accessories /
+Apparel Intelligence Include: •
+OEM support •
+Aftermarket support •
+Apparel •
+Riding gear •
+Accessories •
+Special orders •
+Fitment guidance •
+Service integration •
+Ownership lifecycle support
+11. Geo Market Structure Create a
+normalized geographic hierarchy. Include: Primary Local Market Main city and immediate area. Metro Market Major surrounding region. Extended Market Only if supported by intake or staff notes. Lifestyle /
+Use-Case Markets Examples: •
+lakes •
+hunting regions •
+ranch areas •
+commuting corridors •
+outdoor recreation zones Do not invent geography.
+12. Buyer Psychology
+& Decision Trigger Map For each major buyer group, include: •
+Buyer type •
+Motivation •
+Decision triggers •
+Objections •
+Trust triggers •
+Emotional drivers •
+Category-specific interests •
+Geographic or lifestyle relevance Include buyer types only when supported by inputs.
+13. Seasonality &
+Monthly Nurture Layer Separate seasonal and temporary priorities from evergreen authority. Include: •
+Peak seasons •
+Slow seasons •
+Monthly nurture opportunities •
+Seasonal product pushes •
+Promotional timing •
+Aged inventory concerns Rule: Seasonal strategy may influence weighting, but it must not override core identity.
+14. Community, Trust &
+Lifestyle Positioning Include: •
+Community involvement •
+Local identity •
+Family-owned /
+independent trust •
+Cultural or regional lifestyle themes •
+Reputation signals •
+Integrity /
+relationship positioning Use this section to shape tone and trust language.
+15. Competitive Landscape Include: •
+Competitor names •
+Competitor URLs •
+Competitor cities •
+Strategic positioning against competitors •
+Differentiation themes Do not attack competitors.
+16. Approved Claims /
+Risk Control Organize claims into: Approved Safe Claims Claims supported by the input. Claims Requiring Proof Claims that may be true but need verification. Internal-Only Intelligence Information useful for strategy but not public-facing. Forbidden Unless Verified Claims that must not be used without proof. Compliance-Sensitive Language Finance, warranty, pricing, trade-in, or ranking language that requires care.
+17. Priority Entity Themes Create weighted authority themes. Primary Themes Dominant SEO /
+AEO identity signals. Secondary Themes Supportive department, brand, or community signals. Tertiary Themes Useful but lower-priority context. Avoid Reducing Identity To List oversimplifications the system must avoid.
+18. Prompt Operational Rules Create clear rules future prompts must follow. Include: •
+Evergreen identity overrides seasonal emphasis •
+Deployment Inputs Sheet controls URLs •
+Do not invent claims •
+Do not invent URLs •
+Use compliance-safe finance language •
+Preserve brand hierarchy •
+Preserve department distinctions •
+Monthly nurture strategy is supplemental •
+Risk notes must control public-facing claims
+19. Deployment Inputs Sheet Create a
+clean execution section containing: •
+Home URL •
+About URL •
+Map /
+Hours URL •
+Showroom /
+Inventory URL •
+New Inventory URL •
+Used Inventory URL •
+Service URL •
+Parts URL •
+Finance URL •
+Promotions URL •
+Contact URL •
+Trade-In URL •
+Test Ride URL •
+Staff URL •
+Blog URL •
+Events URL •
+Testimonials /
+Reviews URL •
+Brand inventory URLs •
+Logo URL •
+GBP URL •
+Google Maps URL •
+Review URL •
+Social URLs •
+Latitude /
+Longitude •
+Platform limitations, if provided If unavailable, mark as Missing —
+verify before prompt execution.
+20. Missing /
+QA Items Before Final Build End with a
+direct checklist of missing or uncertain items. Include: •
+missing URLs •
+missing social links •
+missing coordinates •
+unsupported claims •
+contradictory data •
+brand confusion •
+finance compliance questions •
+platform limitations •
+anything needed before running authority page prompts FINAL OUTPUT REQUIREMENT The final document must be: •
+Clean •
+Organized •
+Non-redundant •
+Prompt-ready •
+Accurate •
+Staff-usable •
+Suitable for AI SEO page generation •
+Suitable for schema and llms development •
+Suitable for QA review Do not output commentary after the final document except for the Missing /
+QA Items section. COPY END How to use it Use this prompt before the six authority page prompts. Workflow: Upload raw intake documents Upload Deployment Inputs Sheet, if available Run this Master Intelligence Builder Prompt Review Missing /
+QA Items Finalize the Master Intelligence Packet Use that packet to run: About Showroom Service Parts Finance Incentives Global Schema llms Consolidation QA Validation This becomes the normalization layer before production.

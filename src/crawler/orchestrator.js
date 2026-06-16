@@ -12,7 +12,7 @@
 import parseRobotsTxt, { isPathAllowed } from './robotsParser.js';
 import harvestLinks, { harvestLinksFromHtml, mergeDiscoveredLinks } from './linkHarvester.js';
 import parseSitemaps from './sitemapParser.js';
-import fetchPool from './fetchPool.js';
+import fetchPool, { fetchUrl, getFetchTelemetry } from './fetchPool.js';
 import fetchProxy from '../utils/fetchProxy.js';
 import classifySite, { SITE_VERTICALS, getApplicableFields } from './siteClassifier.js';
 import extractStructuredData, { getBestOrganization } from '../extractors/structuredData.js';
@@ -184,6 +184,7 @@ export default async function orchestrateCrawl(targetUrl, onProgress) {
           type: classifyUrl(entry.url),
           ok: entry.ok,
           error: entry.error || null,
+          durationMs: entry.duration || 0,
         });
       }
 
@@ -208,6 +209,10 @@ export default async function orchestrateCrawl(targetUrl, onProgress) {
     // ========== PHASE 10: Merge and Finalize ==========
     onProgress?.(95, 'Merging results and finalizing...', 0, crawledPages.length, allDiscovered.length);
 
+    // Attach telemetry slow pages for later user-driven retries
+    const telemetry = getFetchTelemetry();
+    const slowPages = telemetry.slowUrls || [];
+
     const finalJson = buildFinalOutput({
       crawledUrl: normalizedTarget,
       siteVertical,
@@ -217,6 +222,7 @@ export default async function orchestrateCrawl(targetUrl, onProgress) {
       extractionResult,
       audit,
       durationMs: Date.now() - startTime,
+      slowPages,
     });
 
     onProgress?.(100, 'Crawl complete', finalJson.meta?.fieldCount || 0, crawledPages.length, allDiscovered.length);
@@ -305,6 +311,7 @@ function buildFinalOutput(context) {
     extractionResult,
     audit,
     durationMs,
+    slowPages = [],
   } = context;
 
   return {
@@ -320,6 +327,8 @@ function buildFinalOutput(context) {
       pagesFetchFailed: crawledPages.filter((p) => !p.ok).length,
       hasStructuredData: structuredData.foundSchema,
       fieldCount: countExtractedFields(extractionResult),
+      slowPages: (slowPages || []).map((s) => ({ url: s.url, durationMs: s.duration, status: s.status, error: s.error || null })),
+      slowPageCount: (slowPages || []).length,
     },
     data: extractionResult,
     audit: audit.toJSON(),
@@ -341,3 +350,29 @@ function countExtractedFields(data) {
 
 // Export handled by default export above
 export { orchestrateCrawl };
+
+/**
+ * Re-crawl a selected list of URLs with an increased timeout.
+ * Returns page-like entries compatible with the main orchestrator output.
+ */
+export async function reCrawlSelectedPages(urls = [], opts = {}) {
+  const timeout = opts.timeout || crawlConfig.slowRetryTimeoutMs || (crawlConfig.fetchTimeout * 3);
+  const results = [];
+  for (const url of Array.from(new Set(urls)).filter(Boolean)) {
+    try {
+      const entry = await fetchUrl(url, { timeout });
+      results.push({
+        url: entry.url,
+        html: entry.html || '',
+        status: entry.status,
+        type: classifyUrl(entry.url),
+        ok: entry.ok,
+        error: entry.error || null,
+        durationMs: entry.duration || 0,
+      });
+    } catch (err) {
+      results.push({ url, html: '', status: 0, type: classifyUrl(url), ok: false, error: String(err), durationMs: 0 });
+    }
+  }
+  return results;
+}
