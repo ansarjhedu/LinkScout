@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { CheckCircle2, AlertTriangle, ShieldAlert, BadgeInfo } from "lucide-react";
 import ConfidenceBadge from "./ConfidenceBadge";
 
@@ -15,10 +15,11 @@ export default function ResultsDashboard({ masterJson }) {
 
   if (!masterJson) return null;
 
-  const summary = masterJson.meta.confidenceSummary || {};
-  const sections = masterJson.sections;
+  const meta = masterJson.meta || {};
+  const summary = meta.confidenceSummary || {};
+  const sections = masterJson.sections || {};
 
-  const TABS = ["Overview", "Pages & URLs", "Catalog", "Products", "Collections", "Link Registry", "Brands", "Finance", "Claims", "Crawl Audit"];
+  const TABS = ["Overview", "Pages & URLs", "Catalog", "Products", "Collections", "Link Registry", "Page Timing", "Brands", "Finance", "Claims", "Crawl Audit"];
 
   return (
     <div className="w-full max-w-4xl mx-auto mt-8 space-y-6">
@@ -27,9 +28,9 @@ export default function ResultsDashboard({ masterJson }) {
         {/* Card 1: Completeness */}
         <div className="bg-zinc-900/80 border border-zinc-800/80 rounded-xl p-4 shadow-md text-center">
           <div className="text-zinc-500 text-xs font-semibold tracking-wider uppercase">Completeness</div>
-          <div className="text-3xl font-bold font-mono text-indigo-400 mt-1">{masterJson.meta.completenessScore || 0}%</div>
+          <div className="text-3xl font-bold font-mono text-indigo-400 mt-1">{meta.completenessScore || 0}%</div>
           <div className="w-full bg-zinc-950 rounded-full h-1.5 mt-2.5 overflow-hidden">
-            <div style={{ width: `${masterJson.meta.completenessScore || 0}%` }} className="bg-indigo-500 h-full rounded-full" />
+            <div style={{ width: `${meta.completenessScore || 0}%` }} className="bg-indigo-500 h-full rounded-full" />
           </div>
         </div>
 
@@ -239,6 +240,53 @@ export default function ResultsDashboard({ masterJson }) {
               ))}
             </tbody>
           </table>
+        )}
+
+        {activeTab === "Page Timing" && (
+          <div className="space-y-4">
+            <div className="flex flex-wrap gap-3 mb-4">
+              <div className="bg-zinc-900/80 border border-zinc-800/80 rounded-xl p-4 shadow-md text-sm text-zinc-300">
+                <div className="text-zinc-500 uppercase tracking-wide text-[10px] mb-1">Total pages timed</div>
+                <div className="text-2xl font-bold text-indigo-400">{(meta.crawledPages || []).length}</div>
+              </div>
+              <div className="bg-zinc-900/80 border border-zinc-800/80 rounded-xl p-4 shadow-md text-sm text-zinc-300">
+                <div className="text-zinc-500 uppercase tracking-wide text-[10px] mb-1">Slow page count</div>
+                <div className="text-2xl font-bold text-amber-400">{(meta.slowPages || []).length}</div>
+              </div>
+              <div className="bg-zinc-900/80 border border-zinc-800/80 rounded-xl p-4 shadow-md text-sm text-zinc-300">
+                <div className="text-zinc-500 uppercase tracking-wide text-[10px] mb-1">Avg page duration</div>
+                <div className="text-2xl font-bold text-emerald-400">{meta.averagePageDurationMs != null ? `${meta.averagePageDurationMs}ms` : "N/A"}</div>
+              </div>
+              <div className="bg-zinc-900/80 border border-zinc-800/80 rounded-xl p-4 shadow-md text-sm text-zinc-300">
+                <div className="text-zinc-500 uppercase tracking-wide text-[10px] mb-1">Above-average pages</div>
+                <div className="text-2xl font-bold text-violet-400">{meta.pagesAboveAverageCount || 0}</div>
+              </div>
+            </div>
+            <div className="overflow-x-auto rounded-xl border border-zinc-800 bg-zinc-950/80 p-3">
+              <table className="min-w-full text-left text-xs sm:text-sm border-collapse">
+                <thead>
+                  <tr className="border-b border-zinc-800 text-zinc-400 uppercase tracking-wider text-[11px] font-bold">
+                    <th className="pb-3 pr-4">URL</th>
+                    <th className="pb-3 pr-4">Status</th>
+                    <th className="pb-3 pr-4">Duration</th>
+                    <th className="pb-3 pr-4">Slow</th>
+                    <th className="pb-3">Crawl Status</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-zinc-850 text-zinc-300">
+                  {(meta.crawledPages || []).slice(0, 80).map((page, idx) => (
+                    <tr key={idx} className="hover:bg-zinc-850/20">
+                      <td className="py-3 pr-4 font-mono truncate max-w-[260px]">{page.url}</td>
+                      <td className="py-3 pr-4 text-zinc-400">{page.status || "—"}</td>
+                      <td className="py-3 pr-4 text-zinc-300">{page.duration != null ? `${page.duration}ms` : "N/A"}</td>
+                      <td className="py-3 pr-4 text-amber-300">{page.isSlow ? "Yes" : "No"}</td>
+                      <td className="py-3 text-zinc-300">{page.crawlStatus || "—"}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
         )}
 
         {/* tab-brands */}

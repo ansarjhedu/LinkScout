@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Sparkles, Terminal, Activity, AlertTriangle } from "lucide-react";
 import UrlInput from "./UrlInput";
-import ProgressBar from "./ProgressBar";
+import ServerModeToggle from "./ServerModeToggle";
+import CrawlStatusPanel from "./CrawlStatusPanel";
 import ResultsDashboard from "./ResultsDashboard";
 import DownloadButtons from "./DownloadButtons";
 import QAChecklist from "./QAChecklist";
@@ -18,13 +19,22 @@ export default function App() {
   const [status, setStatus] = useState("idle"); // "idle" | "crawling" | "complete" | "error"
   const [progress, setProgress] = useState({
     percent: 0,
-    currentStep: "",
+    currentStep: "Ready to begin crawl.",
     fieldCount: 0,
     pagesVisited: 0,
     linksDiscovered: 0
   });
+  const [options, setOptions] = useState({ enableReCrawl: true, verboseDiagnostics: false });
+  const [recentFetches, setRecentFetches] = useState([]);
   const [masterJson, setMasterJson] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
+  const [useServerMode, setUseServerMode] = useState(false);
+  const [serverOnline, setServerOnline] = useState(false);
+  const [serverStatus, setServerStatus] = useState("idle");
+  const [serverJobId, setServerJobId] = useState(null);
+  const serverBaseInput = import.meta.env.VITE_SERVER_URL?.trim() || '';
+  const serverBaseUrl = serverBaseInput.replace(/\/+$|^\s+|\s+$/g, '') || '';
+  const apiUrl = useCallback((path) => `${serverBaseUrl}${path}`, [serverBaseUrl]);
 
   /**
    * Triggers the full web crawler and scraper sequence.
@@ -32,10 +42,23 @@ export default function App() {
    * 
    * @param {string} targetUrl - Validated target domain URL.
    */
+  const pingServer = useCallback(async () => {
+    try {
+      const res = await fetch(apiUrl('/api/health'), { cache: 'no-store' });
+      const ok = res.ok;
+      setServerOnline(ok);
+      return ok;
+    } catch {
+      setServerOnline(false);
+      return false;
+    }
+  }, [apiUrl]);
+
   const handleStartCrawl = async (targetUrl) => {
     setStatus("crawling");
     setErrorMsg(null);
     setMasterJson(null);
+    setRecentFetches([]);
 
     try {
       setProgress({
@@ -45,25 +68,112 @@ export default function App() {
         pagesVisited: 0,
         linksDiscovered: 0
       });
+      setServerStatus(useServerMode ? "starting" : "idle");
+      setServerJobId(null);
 
-      const finalResult = await orchestrateCrawl(targetUrl, (percent, stepName, fields, visited, links) => {
-        setProgress({
-          percent,
-          currentStep: stepName,
-          fieldCount: fields,
-          pagesVisited: visited,
-          linksDiscovered: links || 0
+      let finalResult;
+      if (useServerMode) {
+        const pingOk = await pingServer();
+        if (!pingOk) {
+          throw new Error('Unable to reach the crawl server. Please confirm the server is online and try again.');
+        }
+
+        setProgress((prev) => ({
+          ...prev,
+          percent: 10,
+          currentStep: "Submitting URL to server worker...",
+          fieldCount: 0,
+          pagesVisited: 0,
+          linksDiscovered: 0,
+        }));
+
+        const response = await fetch(apiUrl('/api/crawl'), {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            url: targetUrl,
+            opts: {
+              maxCrawlPages: 15,
+              enableReCrawl: options.enableReCrawl,
+            },
+          }),
         });
-      });
+        if (!response.ok) {
+          throw new Error(`Server crawl request failed: ${response.status}`);
+        }
+        const body = await response.json();
+        const jobId = body.id;
+        setServerJobId(jobId);
+        setServerStatus('queued');
+
+        let attempts = 0;
+        while (attempts < 30) {
+          attempts += 1;
+          const statusMessage = `Checking server crawl status (${attempts})...`;
+          setProgress((prev) => ({
+            ...prev,
+            percent: Math.min(90, 10 + attempts * 2),
+            currentStep: statusMessage,
+          }));
+          setServerStatus('processing');
+          await new Promise((resolve) => setTimeout(resolve, 2000));
+          const resultRes = await fetch(apiUrl(`/api/result/${jobId}`));
+          if (!resultRes.ok) continue;
+          const resultBody = await resultRes.json();
+          if (resultBody.meta && resultBody.meta.status === 'done') {
+            if (!resultBody.data) {
+              throw new Error('Server crawl completed but returned no result data.');
+            }
+            finalResult = resultBody.data;
+            finalResult.serverCrawl = true;
+            setServerStatus('done');
+            break;
+          }
+          if (resultBody.meta && resultBody.meta.status === 'error') {
+            setServerStatus('error');
+            throw new Error(`Server worker failed: ${resultBody.meta.error || 'unknown'}`);
+          }
+        }
+
+        if (!finalResult) {
+          setServerStatus('timeout');
+          throw new Error('Server crawl did not complete in time. Check the worker or Redis queue.');
+        }
+      } else {
+        finalResult = await orchestrateCrawl(targetUrl, (percent, stepName, fields, visited, links, currentUrl, fetchMeta) => {
+          setProgress((prev) => ({
+            ...prev,
+            percent,
+            currentStep: stepName,
+            fieldCount: fields,
+            pagesVisited: visited,
+            linksDiscovered: links || 0
+          }));
+
+          if (currentUrl) {
+            const entry = { url: currentUrl, ts: Date.now(), meta: fetchMeta || {} };
+            setRecentFetches((prev) => {
+              const next = [entry, ...prev].slice(0, 40);
+              return next;
+            });
+          }
+        }, options);
+      }
 
       setMasterJson(finalResult);
       setStatus("complete");
     } catch (err) {
+      setServerStatus('error');
       console.error("Crawler coordinator encountered a fatal pipeline crash", err);
       setErrorMsg(err.message || "An unexpected error disrupted the client-side crawling pipeline.");
       setStatus("error");
     }
   };
+
+  useEffect(() => {
+    if (!useServerMode) return;
+    void pingServer();
+  }, [useServerMode, pingServer]);
 
   return (
     <div className="flex flex-col min-h-screen bg-zinc-950 text-zinc-100 selection:bg-indigo-500/30 selection:text-indigo-300 font-sans antialiased">
@@ -94,29 +204,77 @@ export default function App() {
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-10 flex flex-col justify-center">
         {status === "idle" && (
           <div className="animate-fade-in space-y-4">
-            <UrlInput onSubmit={handleStartCrawl} isCrawling={false} />
-          </div>
-        )}
-
-        {status === "crawling" && (
-          <div className="animate-fade-in space-y-6">
-            <ProgressBar
+            <CrawlStatusPanel
               percent={progress.percent}
               currentStep={progress.currentStep}
               fieldCount={progress.fieldCount}
               pagesVisited={progress.pagesVisited}
               linksDiscovered={progress.linksDiscovered}
+              currentUrl={recentFetches[0]?.url}
+              recentFetches={recentFetches}
+              useServerMode={useServerMode}
+              serverOnline={serverOnline}
+              serverStatus={serverStatus}
+              serverJobId={serverJobId}
+            >
+              <div className="mt-6 space-y-4 border-t border-zinc-800/70 pt-6">
+                <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                  <div className="flex flex-col gap-3">
+                    <label className="inline-flex items-center gap-2 text-sm text-zinc-300">
+                      <input type="checkbox" checked={options.enableReCrawl} onChange={(e) => setOptions((o) => ({ ...o, enableReCrawl: e.target.checked }))} />
+                      <span>Enable re-crawl</span>
+                    </label>
+                    <label className="inline-flex items-center gap-2 text-sm text-zinc-300">
+                      <input type="checkbox" checked={options.verboseDiagnostics} onChange={(e) => setOptions((o) => ({ ...o, verboseDiagnostics: e.target.checked }))} />
+                      <span>Verbose diagnostics</span>
+                    </label>
+                  </div>
+                  <ServerModeToggle useServer={useServerMode} setUseServer={setUseServerMode} serverOnline={serverOnline} />
+                </div>
+                <UrlInput onSubmit={handleStartCrawl} isCrawling={status === 'crawling'} />
+              </div>
+            </CrawlStatusPanel>
+          </div>
+        )}
+
+        {status === "crawling" && (
+          <div className="animate-fade-in space-y-6">
+            <CrawlStatusPanel
+              percent={progress.percent}
+              currentStep={progress.currentStep}
+              fieldCount={progress.fieldCount}
+              pagesVisited={progress.pagesVisited}
+              linksDiscovered={progress.linksDiscovered}
+              currentUrl={recentFetches[0]?.url}
+              recentFetches={recentFetches}
+              useServerMode={useServerMode}
+              serverOnline={serverOnline}
+              serverStatus={serverStatus}
+              serverJobId={serverJobId}
             />
           </div>
         )}
 
         {status === "complete" && masterJson && (
           <div className="animate-fade-in space-y-6">
+            <CrawlStatusPanel
+              percent={100}
+              currentStep="Crawl complete"
+              fieldCount={progress.fieldCount}
+              pagesVisited={progress.pagesVisited}
+              linksDiscovered={progress.linksDiscovered}
+              currentUrl={recentFetches[0]?.url}
+              recentFetches={recentFetches}
+              useServerMode={useServerMode}
+              serverOnline={serverOnline}
+              serverStatus={serverStatus}
+              serverJobId={serverJobId}
+            />
             {/* Download Board Deck */}
             <DownloadButtons masterJson={masterJson} />
 
             {/* QA Checklist Board */}
-            <QAChecklist missingItems={masterJson.sections.s20_crawlAudit || masterJson.sections.s20_missingItems} />
+            <QAChecklist missingItems={(masterJson.sections?.s20_crawlAudit || masterJson.sections?.s20_missingItems) || []} />
 
             {/* Interactive Tab Panels */}
             <ResultsDashboard masterJson={masterJson} />

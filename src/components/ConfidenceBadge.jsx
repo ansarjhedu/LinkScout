@@ -1,5 +1,3 @@
-import React from "react";
-
 /**
  * Maps system confidence levels to cohesive TailwindCSS classes.
  * Aligns component colors with spreadsheet visual themes (Green/Amber/Red/Blue).

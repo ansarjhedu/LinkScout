@@ -1,0 +1,29 @@
+version: '3.8'
+services:
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    ports:
+      - '6379:6379'
+
+  server:
+    build: ./server
+    restart: unless-stopped
+    depends_on:
+      - redis
+    environment:
+      - REDIS_URL=redis://redis:6379
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./server:/app
+
+  worker:
+    build: ./server
+    depends_on:
+      - redis
+    environment:
+      - REDIS_URL=redis://redis:6379
+    command: npm run worker
+    volumes:
+      - ./server:/app

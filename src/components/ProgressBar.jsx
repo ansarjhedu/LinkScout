@@ -1,7 +1,6 @@
-import React from "react";
 import { FileText, Database, Compass, Link2 } from "lucide-react";
 
-export default function ProgressBar({ percent, currentStep, fieldCount, pagesVisited, linksDiscovered }) {
+export default function ProgressBar({ percent, currentStep, fieldCount, pagesVisited, linksDiscovered, currentUrl, recentFetches }) {
   const safePercent = Math.min(Math.max(Math.round(percent || 0), 0), 100);
 
   return (
@@ -53,6 +52,24 @@ export default function ProgressBar({ percent, currentStep, fieldCount, pagesVis
           <div>
             <div className="text-zinc-500 text-xs">Fields</div>
             <div className="font-bold font-mono text-zinc-300 text-base">{fieldCount || 0}</div>
+          </div>
+        </div>
+      </div>
+      {/* Live fetch stream */}
+      <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div className="text-xs text-zinc-400">
+          <div className="text-zinc-500 uppercase tracking-wide text-[10px] mb-1">Currently Fetching</div>
+          <div className="font-mono text-sm text-zinc-200 truncate max-w-full">{currentUrl || "Idle"}</div>
+        </div>
+        <div className="text-xs text-zinc-400">
+          <div className="text-zinc-500 uppercase tracking-wide text-[10px] mb-1">Recent Fetches</div>
+          <div className="flex gap-2 overflow-x-auto no-scrollbar py-1">
+            {(recentFetches || []).slice(0, 20).map((f, i) => (
+              <div key={i} className="px-2 py-1 rounded-md bg-zinc-950 border border-zinc-800 text-[11px] font-mono text-zinc-300 whitespace-nowrap">
+                {f.url.length > 60 ? f.url.slice(0, 57) + '...' : f.url}
+              </div>
+            ))}
+            {(!(recentFetches || []).length) && <div className="text-zinc-500 text-[11px]">—</div>}
           </div>
         </div>
       </div>

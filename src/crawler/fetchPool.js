@@ -59,11 +59,11 @@ export default async function fetchPool(urls, options = {}) {
     telemetry.durations.push(dur);
     if (!res.ok) {
       telemetry.failures++;
-      telemetry.slowUrls.push({ url, status: res.status, duration: dur, error: res.error });
+      telemetry.slowUrls.push({ url, status: res.status, duration: dur, error: res.error, proxyUsed: res.proxyUsed || null });
     } else {
       telemetry.successes++;
       if (dur > (crawlConfig.slowThresholdMs || 2000)) {
-        telemetry.slowUrls.push({ url, status: res.status, duration: dur });
+        telemetry.slowUrls.push({ url, status: res.status, duration: dur, proxyUsed: res.proxyUsed || null });
       }
     }
 
@@ -73,7 +73,8 @@ export default async function fetchPool(urls, options = {}) {
       duration: dur,
       status: res.status,
       ok: res.ok,
-      error: res.error || null
+      error: res.error || null,
+      proxyUsed: res.proxyUsed || null
     };
 
     cache.set(url, entry);
@@ -138,11 +139,11 @@ export async function fetchUrl(url, opts = {}) {
   telemetry.durations.push(dur);
   if (!lastRes || !lastRes.ok) {
     telemetry.failures++;
-    telemetry.slowUrls.push({ url, status: lastRes?.status, duration: dur, error: lastRes?.error });
+    telemetry.slowUrls.push({ url, status: lastRes?.status, duration: dur, error: lastRes?.error, proxyUsed: lastRes?.proxyUsed || null });
   } else {
     telemetry.successes++;
     if (dur > (crawlConfig.slowThresholdMs || 2000)) {
-      telemetry.slowUrls.push({ url, status: lastRes.status, duration: dur });
+      telemetry.slowUrls.push({ url, status: lastRes.status, duration: dur, proxyUsed: lastRes?.proxyUsed || null });
     }
   }
 
@@ -153,6 +154,7 @@ export async function fetchUrl(url, opts = {}) {
     status: lastRes?.status || 0,
     ok: !!(lastRes && lastRes.ok),
     error: lastRes?.error || null,
+    proxyUsed: lastRes?.proxyUsed || null,
   };
 
   cache.set(url, entry);

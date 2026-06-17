@@ -7,6 +7,13 @@ export const PROXY_PROVIDERS = [
     name: "allorigins-raw",
     buildUrl: (target) => `https://api.allorigins.win/raw?url=${encodeURIComponent(target)}`,
     parseResponse: async (response) => response.text(),
+    // allow fetchProxy to ask for request headers to send to provider
+    requestHeaders: (target) => ({
+      Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+      // reflect the origin so proxies can echo Access-Control-Allow-Origin
+      Origin: typeof location !== "undefined" ? location.origin : undefined,
+      "X-Requested-With": "XMLHttpRequest",
+    }),
   },
   {
     name: "allorigins-get",
@@ -18,21 +25,41 @@ export const PROXY_PROVIDERS = [
       }
       return json.contents || "";
     },
+    requestHeaders: (target) => ({
+      Accept: "application/json,text/html;q=0.9,*/*;q=0.8",
+      Origin: typeof location !== "undefined" ? location.origin : undefined,
+      "X-Requested-With": "XMLHttpRequest",
+    }),
   },
   {
     name: "corsproxy-io",
     buildUrl: (target) => `https://corsproxy.io/?${encodeURIComponent(target)}`,
     parseResponse: async (response) => response.text(),
+    requestHeaders: (target) => ({
+      Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+      Origin: typeof location !== "undefined" ? location.origin : undefined,
+      "X-Requested-With": "XMLHttpRequest",
+    }),
   },
   {
     name: "codetabs",
     buildUrl: (target) => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(target)}`,
     parseResponse: async (response) => response.text(),
+    requestHeaders: (target) => ({
+      Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+      Origin: typeof location !== "undefined" ? location.origin : undefined,
+      "X-Requested-With": "XMLHttpRequest",
+    }),
   },
   {
     name: "thingproxy",
     buildUrl: (target) => `https://thingproxy.freeboard.io/fetch/${encodeURIComponent(target)}`,
     parseResponse: async (response) => response.text(),
+    requestHeaders: (target) => ({
+      Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+      Origin: typeof location !== "undefined" ? location.origin : undefined,
+      "X-Requested-With": "XMLHttpRequest",
+    }),
   },
   {
     name: "jsonp-afeld",
@@ -44,5 +71,10 @@ export const PROXY_PROVIDERS = [
       }
       return json.contents || "";
     },
+    requestHeaders: (target) => ({
+      Accept: "application/json,text/html;q=0.9,*/*;q=0.8",
+      Origin: typeof location !== "undefined" ? location.origin : undefined,
+      "X-Requested-With": "XMLHttpRequest",
+    }),
   },
 ];

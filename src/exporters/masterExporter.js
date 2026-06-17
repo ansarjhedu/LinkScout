@@ -250,8 +250,37 @@ export default function generateMasterSheet(masterJson) {
       ]);
     });
 
+    const averageDuration = masterJson.meta?.averagePageDurationMs ?? null;
+    const pageTimingRows = [["URL", "HTTP Status", "Duration (ms)", "Slow Page", "Above Average", "Proxy", "Crawl Status", "OK"].map(h => buildCell(h, HEADER_FILL, HEADER_FONT, true))];
+    (masterJson.meta?.crawledPages || []).forEach((p) => {
+      pageTimingRows.push([
+        buildCell(p.url),
+        buildCell(p.status || ""),
+        buildCell(p.duration ?? ""),
+        buildCell(p.isSlow ? "Yes" : "No"),
+        buildCell(averageDuration && p.duration > averageDuration ? "Yes" : "No"),
+        buildCell(p.proxyUsed || ""),
+        buildCell(p.crawlStatus || ""),
+        buildCell(p.ok ? "Yes" : "No")
+      ]);
+    });
+
+    const aboveAverageRows = [["URL", "HTTP Status", "Duration (ms)", "Proxy", "Crawl Status", "OK"].map(h => buildCell(h, HEADER_FILL, HEADER_FONT, true))];
+    (masterJson.meta?.crawledPages || [])
+      .filter((p) => averageDuration !== null && typeof p.duration === "number" && p.duration > averageDuration)
+      .forEach((p) => {
+        aboveAverageRows.push([
+          buildCell(p.url),
+          buildCell(p.status || ""),
+          buildCell(p.duration),
+          buildCell(p.proxyUsed || ""),
+          buildCell(p.crawlStatus || ""),
+          buildCell(p.ok ? "Yes" : "No")
+        ]);
+      });
+
     const sheetsMap = {
-      "Summary": t1, "NAP & Identity": t2, "Pages & URLs": t3, "All Discovered URLs": tAll, "Slow Pages": slowPagesRows, "Collections": collectionRows, "Products": productRows, "Social Media": t4,
+      "Summary": t1, "NAP & Identity": t2, "Pages & URLs": t3, "All Discovered URLs": tAll, "Slow Pages": slowPagesRows, "Page Timing": pageTimingRows, "Above Average Pages": aboveAverageRows, "Collections": collectionRows, "Products": productRows, "Social Media": t4,
       "Brands": t5, "Departments": t6, "Finance": t7, "Service & Parts": t8,
       "Geo & Market": t9, "Buyer Psychology": t10, "Claims & Compliance": t11,
       "Business History": t12, "Crawl Audit Gaps": t13, "Crawl Log": t14

@@ -59,8 +59,7 @@ export default async function orchestrateCrawl(targetUrl, onProgress) {
       );
       audit.logInfo('robots.txt parsed', { disallowed: robots.disallowed?.length || 0 });
     } catch (err) {
-      if (err instanceof CrawlError) throw err;
-      audit.logWarn('robots.txt parsing failed, assuming allow-all', { error: err.message });
+      audit.logWarn('robots.txt parsing failed, assuming allow-all', { error: err?.message || String(err) });
       robots = { disallowed: [], sitemaps: [] };
     }
 

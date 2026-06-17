@@ -125,13 +125,13 @@ export default async function fetchProxy(url, options = {}) {
 
       try {
         const proxyUrl = provider.buildUrl(url);
+        // allow provider to supply additional request headers (e.g., Origin) to increase chances of a CORS-allowed response
+        const providerHeaders = typeof provider.requestHeaders === "function" ? (provider.requestHeaders(url) || {}) : {};
+        const headers = { ...defaultFetchHeaders(), ...providerHeaders };
         const response = await fetch(proxyUrl, {
           method: method === "HEAD" ? "GET" : method,
           signal: controller.signal,
-          headers: {
-            Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
-          },
+          headers,
         });
 
         clearTimeout(timerId);

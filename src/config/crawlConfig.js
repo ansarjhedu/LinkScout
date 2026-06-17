@@ -4,15 +4,15 @@
 let _env;
 try {
   _env = import.meta.env || {};
-} catch (e) {
+} catch {
   _env = (typeof process !== 'undefined' && process.env) ? process.env : {};
 }
 
 const crawlConfig = {
   corsProxyUrl: _env.VITE_CORS_PROXY_URL || _env.VITE_CORS_PROXY_URL || "https://api.allorigins.win/raw?url=",
   proxyUrl: _env.VITE_PROXY_URL || _env.PROXY_URL || _env.HTTPS_PROXY || _env.https_proxy || _env.HTTP_PROXY || _env.http_proxy || null,
-  // Production defaults: optimized for faster deep crawl budgets
-  maxCrawlPages: Number(_env.VITE_MAX_CRAWL_PAGES) || 5000,
+  // Default browser crawl budget is intentionally small for fast UI test runs.
+  maxCrawlPages: Number(_env.VITE_MAX_CRAWL_PAGES) || 15,
   rateLimitMs: Number(_env.VITE_CRAWL_RATE_LIMIT_MS) || 40,
   concurrency: Number(_env.VITE_CRAWL_CONCURRENCY) || 10,
   appTitle: _env.VITE_APP_TITLE || "MaxOpp Intelligence Crawler",

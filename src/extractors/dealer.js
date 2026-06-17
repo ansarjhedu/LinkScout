@@ -226,7 +226,7 @@ export default function extractDealerIntelligence(pages, structuredData, audit =
 
   return {
     // Core NAP
-    dealershipName,
+    dealershipName: dealerName,
     legalName,
     phone,
     email,

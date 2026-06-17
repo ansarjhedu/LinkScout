@@ -112,6 +112,44 @@ export default function generatePagesSheet(masterJson) {
     applyAutoWidths(wsSlow, slowRows);
     XLSX.utils.book_append_sheet(wb, wsSlow, "Slow Pages");
 
+    const crawledPages = masterJson.meta?.crawledPages || [];
+    const averageDuration = masterJson.meta?.averagePageDurationMs ?? null;
+
+    const timingRows = [["URL", "HTTP Status", "Duration (ms)", "Slow Page", "Above Average", "Proxy", "Crawl Status", "OK"].map((h) => buildCell(h, HEADER_FILL, HEADER_FONT, true))];
+    crawledPages.forEach((page) => {
+      timingRows.push([
+        buildCell(page.url),
+        buildCell(page.status || ""),
+        buildCell(page.duration ?? ""),
+        buildCell(page.isSlow ? "Yes" : "No"),
+        buildCell(averageDuration && page.duration > averageDuration ? "Yes" : "No"),
+        buildCell(page.proxyUsed || ""),
+        buildCell(page.crawlStatus || ""),
+        buildCell(page.ok ? "Yes" : "No")
+      ]);
+    });
+    const wsTiming = XLSX.utils.aoa_to_sheet(timingRows);
+    wsTiming["!views"] = [{ state: "frozen", ySplit: 1 }];
+    applyAutoWidths(wsTiming, timingRows);
+    XLSX.utils.book_append_sheet(wb, wsTiming, "Page Timing");
+
+    const aboveAverageRows = [["URL", "HTTP Status", "Duration (ms)", "Proxy", "Crawl Status", "OK"].map((h) => buildCell(h, HEADER_FILL, HEADER_FONT, true))];
+    crawledPages.filter((page) => averageDuration !== null && typeof page.duration === "number" && page.duration > averageDuration)
+      .forEach((page) => {
+        aboveAverageRows.push([
+          buildCell(page.url),
+          buildCell(page.status || ""),
+          buildCell(page.duration),
+          buildCell(page.proxyUsed || ""),
+          buildCell(page.crawlStatus || ""),
+          buildCell(page.ok ? "Yes" : "No")
+        ]);
+      });
+    const wsAboveAverage = XLSX.utils.aoa_to_sheet(aboveAverageRows);
+    wsAboveAverage["!views"] = [{ state: "frozen", ySplit: 1 }];
+    applyAutoWidths(wsAboveAverage, aboveAverageRows);
+    XLSX.utils.book_append_sheet(wb, wsAboveAverage, "Above Average Pages");
+
     const registryRows = [["URL", "Type", "Category", "Status", "Confidence", "Duration (ms)", "Slow Page", "Crawl Status", "Source"].map((h) => buildCell(h, HEADER_FILL, HEADER_FONT, true))];
     const registry = masterJson.linkRegistry || [];
     registry.forEach((entry) => {

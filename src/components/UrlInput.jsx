@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link2, Play, ShieldAlert } from "lucide-react";
 
 /**
@@ -42,7 +42,7 @@ export default function UrlInput({ onSubmit, isCrawling }) {
       }
 
       onSubmit(parsedUrl.href);
-    } catch (err) {
+    } catch {
       setError("Malformed URL structure. Verify the link and try again.");
     }
   };

@@ -1,0 +1,1 @@
+Fix: use relative /api paths, normalize VITE_SERVER_URL, add backend script, simplify server polling  

@@ -18,6 +18,29 @@ export default defineConfig({
   },
   server: {
     port: 3000,
-    open: true
+    open: true,
+    cors: {
+      origin: (process.env.VITE_DEV_CORS_ORIGINS || "http://localhost:3000,http://127.0.0.1:3000,http://localhost:5173,https://link-scout-ten.vercel.app")
+        .split(",")
+        .map((origin) => origin.trim())
+        .filter(Boolean),
+      methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+      allowedHeaders: ['Content-Type', 'Authorization']
+    },
+    proxy: {
+      '/api': {
+        target: process.env.VITE_SERVER_URL || 'http://localhost:3001',
+        changeOrigin: true,
+        secure: false,
+      },
+    },
+  },
+  preview: {
+    cors: {
+      origin: (process.env.VITE_DEV_CORS_ORIGINS || "http://localhost:3000,http://127.0.0.1:3000,http://localhost:5173,https://link-scout-ten.vercel.app")
+        .split(",")
+        .map((origin) => origin.trim())
+        .filter(Boolean)
+    }
   }
 });
